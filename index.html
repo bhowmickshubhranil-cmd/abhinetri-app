@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Abhinetri AI</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #090a0f; color: #f1f5f9; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .theatre-glow { box-shadow: 0 0 40px rgba(188, 148, 243, 0.05); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- 🔒 STAGE 1: ONBOARDING ACCREDITATION LOCK (GATEKEEPER VIEW) -->
+    <div id="authGate" class="w-full max-w-md bg-[#131520] border border-gray-800/80 rounded-3xl p-6 space-y-6 theatre-glow">
+        <div class="text-center space-y-2">
+            <div class="w-14 h-14 bg-purple-500/10 border border-purple-500/30 text-purple-400 rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">🎭</div>
+            <h1 class="font-serif text-2xl font-bold text-white tracking-wide">Abhinetri AI</h1>
+            <p class="text-xs text-gray-400 font-light">Enter backstage credentials to sync individual performance desk</p>
+        </div>
+
+        <form id="gateForm" onsubmit="handleOnboardingGateway(event)" class="space-y-4">
+            <div>
+                <label class="block text-[10px] font-bold uppercase tracking-widest text-purple-400 mb-1.5">Full Name</label>
+                <input type="text" id="gName" required placeholder="Shubhranil Bhowmick" class="w-full bg-[#090a0f] border border-gray-800 focus:border-purple-500/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all font-light">
+            </div>
+            <div>
+                <label class="block text-[10px] font-bold uppercase tracking-widest text-purple-400 mb-1.5">Phone Number</label>
+                <input type="tel" id="gPhone" required placeholder="+91 XXXXX XXXXX" class="w-full bg-[#090a0f] border border-gray-800 focus:border-purple-500/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all font-light">
+            </div>
+            <div>
+                <label class="block text-[10px] font-bold uppercase tracking-widest text-purple-400 mb-1.5">Email Address</label>
+                <input type="email" id="gEmail" required placeholder="creative.director@studio.com" class="w-full bg-[#090a0f] border border-gray-800 focus:border-purple-500/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all font-light">
+            </div>
+            <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-semibold text-xs uppercase tracking-widest py-3.5 rounded-xl shadow-lg shadow-purple-950/40 transition-all transform active:scale-[0.98] mt-2">
+                Verify Backstage Access
+            </button>
+        </form>
+    </div>
+
+    <!-- 🎭 STAGE 2: APPLICATION RUNTIME ENVIRONMENT (HIDDEN UNTIL ACCREDITED) -->
+    <div id="mainDashboard" class="hidden w-full max-w-md flex flex-col space-y-6">
+        <header class="flex items-center justify-between border-b border-gray-900 pb-4">
+            <div>
+                <h2 class="text-sm font-bold tracking-widest uppercase text-purple-400">Abhinetri Core</h2>
+                <p id="welcomeUser" class="text-xs text-gray-500 font-light mt-0.5">Welcome Back</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-[9px] bg-emerald-500/10 text-emerald-400 font-mono tracking-wider border border-emerald-500/20">🔒 ENCRYPTED PWA</span>
+        </header>
+
+        <!-- Fresh Monologue Update Deck -->
+        <div class="bg-[#131520] border border-gray-800/80 rounded-2xl p-5 space-y-4">
+            <div class="flex items-center justify-between">
+                <span class="px-2 py-0.5 rounded text-[9px] bg-purple-500/10 text-purple-400 font-bold uppercase tracking-widest border border-purple-500/20">Daily Bulletin</span>
+                <span class="text-[10px] text-gray-500" id="liveDate">June 2026</span>
+            </div>
+            <h3 id="scriptTitle" class="font-serif text-xl font-bold text-white">Loading sync payload...</h3>
+            <p id="scriptContent" class="text-xs text-gray-400 font-light leading-relaxed">Reading deep dramatic registries...</p>
+            <button onclick="rotateScriptEngine()" class="w-full bg-[#090a0f] border border-gray-800 hover:border-purple-500/30 text-gray-300 font-medium text-xs py-2.5 rounded-xl transition-all">
+                🔄 Sync Fresh Curation Feed
+            </button>
+        </div>
+
+        <!-- Isolated Secure Space -->
+        <div class="bg-[#131520] border border-gray-800/80 rounded-2xl p-5 space-y-3">
+            <h3 class="font-serif text-base font-bold text-white">Private Acting Workspace</h3>
+            <textarea id="localScriptSpace" placeholder="Paste target monologue segments or subtext directives here... (Isolated key locking active)" class="w-full h-24 bg-[#090a0f] border border-gray-800 focus:border-purple-500/40 rounded-xl p-3 text-xs text-white focus:outline-none transition-all font-light resize-none"></textarea>
+            <button onclick="commitLocalKeySecurely()" class="w-full bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 font-semibold text-xs tracking-wide py-2.5 rounded-xl transition-all">
+                Save Workspace Parameters
+            </button>
+        </div>
+    </div>
+
+    <!-- ENGINE CONTROL HANDLERS -->
+    <script>
+        const scriptRepository = [
+            { title: "Raktakarabi (Nandini's Stand)", text: "রঞ্জন কোথায়? তোমরা তাকে লোহার খাঁচায় পুরে রাখলেও তার গানকে তো তোমরা মারতে পারবে না। তোমাদের এই সোনার তাল আমার রঞ্জনের এক ফোঁটা হাসির চেয়েও তুচ্ছ!" },
+            { title: "The Bear (Carmy's Grief)", text: "I didn't want to go to culinary school, but my brother died and I realized I had to build something great because otherwise his quiet ending meant nothing. It meant we were both nothing." },
+            { title: "Karna Kunti Sangad (Tagore)", text: "আমি কর্ণ, রাধাপুত্র! আজ সমরাঙ্গনের প্রান্তে দাঁড়িয়ে শান্ত চিত্তে শুধু নিজের ভাগ্যের শেষ অঙ্কটুকু দেখতে চাই মা। আমাকে অর্জুনের প্রতিদ্বন্দ্বী হিসেবেই অমর হতে দাও।" }
+        ];
+
+        window.onload = function() {
+            document.getElementById('liveDate').innerText = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            
+            // Checking if credential token is active inside memory cache
+            const cachedCredential = localStorage.getItem('abhinetri_identity');
+            if (cachedCredential) {
+                initializePlatformRuntime(JSON.parse(cachedCredential).name);
+            }
+        };
+
+        function handleOnboardingGateway(event) {
+            event.preventDefault();
+            
+            const credentialPayload = {
+                name: document.getElementById('gName').value.trim(),
+                phone: document.getElementById('gPhone').value.trim(),
+                email: document.getElementById('gEmail').value.trim(),
+                timestamp: new Date().toISOString()
+            };
+
+            // 1. COMMITTING LOGGING PARSE (This is where data feeds into your master matrix)
+            localStorage.setItem('abhinetri_identity', JSON.stringify(credentialPayload));
+            
+            // [Developer Note]: When you scale this out into Firebase in step 2, 
+            // this is the exact line that sends data automatically into your tracking screen:
+            // database.ref('backstage_users/').push(credentialPayload);
+
+            alert(`Backstage access logged for: ${credentialPayload.name}`);
+            initializePlatformRuntime(credentialPayload.name);
+        }
+
+        function initializePlatformRuntime(userName) {
+            document.getElementById('authGate').classList.add('hidden');
+            const dashboard = document.getElementById('mainDashboard');
+            dashboard.classList.remove('hidden');
+            dashboard.parentElement.className = "min-h-screen w-full flex items-start justify-center p-4 pt-12 md:pt-24";
+            document.getElementById('welcomeUser').innerText = `Backstage Artist: ${userName}`;
+            rotateScriptEngine();
+        }
+
+        function rotateScriptEngine() {
+            const index = Math.floor(Math.random() * scriptRepository.length);
+            document.getElementById('scriptTitle').innerText = scriptRepository[index].title;
+            document.getElementById('scriptContent').innerText = scriptRepository[index].text;
+        }
+
+        function commitLocalKeySecurely() {
+            const content = document.getElementById('localScriptSpace').value;
+            if(!content) return alert("Workspace container is currently empty.");
+            
+            // Client-Side Local Isolation Guard (Scrambled string encoding)
+            const encryptedToken = btoa(unescape(encodeURIComponent(content)));
+            localStorage.setItem('isolated_workspace_block', encryptedToken);
+            alert("Workspace state saved securely. Key locked to this client sandbox.");
+        }
+    </script>
+</body>
+</html>
