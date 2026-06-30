@@ -8,31 +8,37 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#090a0f">
+    <meta name="theme-color" content="#090c15">
     
     <script>
-        const manifest = {
+        const manifestConfiguration = {
             "name": "Abhinetri Core Studio Pro",
-            "short_name": "Abhinetri AI",
+            "short_name": "Abhinetri",
             "start_url": ".",
             "display": "standalone",
-            "background_color": "#090a0f",
-            "theme_color": "#090a0f",
+            "background_color": "#090c15",
+            "theme_color": "#090c15",
             "orientation": "portrait",
             "icons": [
                 {
-                    "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23090A0F'/><path d='M30 35c0-10 8-15 20-15s20 5 20 15v5H30v-5zm-5 15h50v5c0 15-10 25-25 25S25 65 25 55v-5z' fill='%23DC2626'/><circle cx='42' cy='45' r='3' fill='%23FFF'/><circle cx='58' cy='45' r='3' fill='%23FFF'/></svg>",
+                    "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23090C15'/><path d='M30 35c0-10 8-15 20-15s20 5 20 15v5H30v-5zm-5 15h50v5c0 15-10 25-25 25S25 65 25 55v-5z' fill='%23991B1B'/><circle cx='42' cy='45' r='3' fill='%23FFF'/><circle cx='58' cy='45' r='3' fill='%23FFF'/></svg>",
                     "sizes": "192x192",
+                    "type": "image/svg+xml",
+                    "purpose": "any maskable"
+                },
+                {
+                    "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23090C15'/><path d='M30 35c0-10 8-15 20-15s20 5 20 15v5H30v-5zm-5 15h50v5c0 15-10 25-25 25S25 65 25 55v-5z' fill='%23991B1B'/><circle cx='42' cy='45' r='3' fill='%23FFF'/><circle cx='58' cy='45' r='3' fill='%23FFF'/></svg>",
+                    "sizes": "512x512",
                     "type": "image/svg+xml",
                     "purpose": "any maskable"
                 }
             ]
         };
-        const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-        const link = document.createElement('link');
-        link.rel = 'manifest';
-        link.href = URL.createObjectURL(blob);
-        document.head.appendChild(link);
+        const blobString = new Blob([JSON.stringify(manifestConfiguration)], {type: 'application/json'});
+        const manifestLinkNode = document.createElement('link');
+        manifestLinkNode.rel = 'manifest';
+        manifestLinkNode.href = URL.createObjectURL(blobString);
+        document.head.appendChild(manifestLinkNode);
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +51,6 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        /* Font Matrix Assignments */
         .f-en-inter { font-family: 'Inter', sans-serif; }
         .f-en-serif { font-family: 'Playfair Display', serif; }
         .f-en-cinzel { font-family: 'Cinzel', serif; }
@@ -53,15 +58,28 @@
         .f-bn-hind { font-family: 'Hind Siliguri', sans-serif; }
         .f-hi-martel { font-family: 'Martel', serif; }
 
-        /* Dynamic Environment Variables */
-        .theme-dark { --bg-main: #090a0f; --card-bg: #0f111a; --border-color: #2e1212; --text-main: #f1f5f9; --accent: #e11d48; --nav-bg: #06070a; }
-        .theme-morning { --bg-main: #f4f7fa; --card-bg: #ffffff; --border-color: #cbd5e1; --text-main: #0f172a; --accent: #1d4ed8; --nav-bg: #e2e8f0; }
+        /* Dynamic Environment Custom Profiles - Implemented Rich Maroon & Dark Bluish Black */
+        .theme-dark { 
+            --bg-main: #090c15; 
+            --card-bg: #0f1322; 
+            --border-color: #2a1015; 
+            --text-main: #f1f5f9; 
+            --accent: #991b1b; 
+            --nav-bg: #05070d; 
+        }
+        .theme-morning { 
+            --bg-main: #f4f7fa; 
+            --card-bg: #ffffff; 
+            --border-color: #cbd5e1; 
+            --text-main: #0f172a; 
+            --accent: #1d4ed8; 
+            --nav-bg: #e2e8f0; 
+        }
 
         body { background-color: var(--bg-main); color: var(--text-main); font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; }
         .app-card { background-color: var(--card-bg); border: 1px solid var(--border-color); }
         .app-nav { background-color: var(--nav-bg); border-right: 1px solid var(--border-color); }
         
-        /* Premium Transition Timelines */
         .curtain-panel { transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1); }
         .open-left { transform: translateX(-100%); }
         .open-right { transform: translateX(100%); }
@@ -81,67 +99,57 @@
         <div id="curtainRight" class="w-1/2 h-full bg-[#4c0519] border-l border-black/60 shadow-2xl curtain-panel"></div>
     </div>
 
-    <div id="introClapboard" class="hidden fixed inset-0 z-50 bg-[#040508] flex flex-col items-center justify-center transition-opacity duration-500">
+    <div id="introClapboard" class="hidden fixed inset-0 z-50 bg-[#05070d] flex flex-col items-center justify-center transition-opacity duration-500">
         <div class="w-72 space-y-2">
             <div id="clapTop" class="w-full h-10 bg-zinc-900 border-b-4 border-black flex items-center justify-between px-4 text-white font-mono font-bold text-xs tracking-widest clap-top">
                 <span>///</span><span>ABHINETRI ENGINE</span><span>///</span>
             </div>
             <div class="w-full h-28 bg-zinc-800 border-4 border-zinc-900 rounded-b-xl p-4 flex flex-col justify-between font-mono text-[9px] text-zinc-400">
                 <div class="flex justify-between border-b border-zinc-700 pb-2">
-                    <div><span class="text-white block">STAGE</span><span class="text-rose-500 text-xs font-bold">2026-X</span></div>
-                    <div><span class="text-white block">TAKE</span><span class="text-rose-500 text-xs font-bold" id="takeCounter">01</span></div>
+                    <div><span class="text-white block">STAGE</span><span class="text-[#991b1b] text-xs font-bold">2026-X</span></div>
+                    <div><span class="text-white block">TAKE</span><span class="text-[#991b1b] text-xs font-bold" id="takeCounter">01</span></div>
                 </div>
                 <div class="text-right text-[8px] text-zinc-500">AUDIO ENGINE IN SYNC</div>
             </div>
         </div>
     </div>
 
-    <div id="authGate" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#05060b]">
-        <div class="bg-[#0f111a] border border-zinc-800 p-6 rounded-2xl w-full max-w-sm shadow-2xl space-y-4">
+    <div id="authGate" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#05070d]">
+        <div class="bg-[#0f1322] border border-zinc-800/60 p-6 rounded-2xl w-full max-w-sm shadow-2xl space-y-4">
             <div class="text-center">
-                <h1 class="text-xl font-bold text-rose-500 font-serif tracking-tight">ABHINETRI PLATFORM</h1>
+                <h1 class="text-xl font-bold text-[#991b1b] font-serif tracking-tight">ABHINETRI PLATFORM</h1>
                 <p class="text-[9px] text-zinc-500 font-mono tracking-widest uppercase mt-0.5">Professional Studio Hub</p>
             </div>
             <form onsubmit="verifyHardwareChannels(event)" class="space-y-3">
-                <input type="text" required id="authName" placeholder="ARTIST IDENTITY NAME" class="w-full bg-[#090a0f] border border-zinc-800 rounded-xl px-3.5 py-3 text-xs focus:outline-none focus:border-rose-600 text-slate-100 font-medium">
-                <input type="tel" required id="authPhone" placeholder="SECURE TELEPHONY LINE" class="w-full bg-[#090a0f] border border-zinc-800 rounded-xl px-3.5 py-3 text-xs focus:outline-none focus:border-rose-600 text-slate-100 font-medium">
-                <input type="email" required id="authEmail" placeholder="DATA COMMUNICATOR EMAIL" class="w-full bg-[#090a0f] border border-zinc-800 rounded-xl px-3.5 py-3 text-xs focus:outline-none focus:border-rose-600 text-slate-100 font-medium">
+                <input type="text" required id="authName" placeholder="ARTIST IDENTITY NAME" class="w-full bg-[#090c15] border border-zinc-800 rounded-xl px-3.5 py-3 text-xs focus:outline-none focus:border-[#991b1b] text-slate-100 font-medium">
+                <input type="tel" required id="authPhone" placeholder="SECURE TELEPHONY LINE" class="w-full bg-[#090c15] border border-zinc-800 rounded-xl px-3.5 py-3 text-xs focus:outline-none focus:border-[#991b1b] text-slate-100 font-medium">
+                <input type="email" required id="authEmail" placeholder="DATA COMMUNICATOR EMAIL" class="w-full bg-[#090c15] border border-zinc-800 rounded-xl px-3.5 py-3 text-xs focus:outline-none focus:border-[#991b1b] text-slate-100 font-medium">
                 
                 <div class="bg-black/30 border border-zinc-900 p-3 rounded-xl space-y-2 text-[10px] text-zinc-400 font-medium leading-relaxed">
                     <label class="flex items-start space-x-2 cursor-pointer">
-                        <input type="checkbox" required class="mt-0.5 accent-rose-600">
+                        <input type="checkbox" required class="mt-0.5 accent-[#991b1b]">
                         <span>I accept terms of creative usage and mass production tracking parameters.</span>
                     </label>
                     <label class="flex items-start space-x-2 cursor-pointer">
-                        <input type="checkbox" required class="mt-0.5 accent-rose-600">
+                        <input type="checkbox" required class="mt-0.5 accent-[#991b1b]">
                         <span>Grant authorization to parse local microphone and camera node configurations.</span>
                     </label>
                 </div>
-                <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl text-xs tracking-wider font-mono">INITIALIZE HARDWARE</button>
+                <button type="submit" class="w-full bg-[#991b1b] hover:bg-[#881337] text-white font-bold py-3 rounded-xl text-xs tracking-wider font-mono">INITIALIZE HARDWARE</button>
             </form>
         </div>
     </div>
 
-    <div id="tourModal" class="hidden fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4">
-        <div class="bg-[#0f111a] border border-zinc-800 p-6 rounded-2xl max-w-xs text-center space-y-3">
-            <div class="w-10 h-10 bg-rose-600/10 text-rose-500 rounded-full flex items-center justify-center mx-auto text-sm font-mono font-bold">!</div>
-            <h3 id="tourTitle" class="text-sm font-bold font-serif text-slate-200"></h3>
-            <p id="tourText" class="text-xs text-zinc-400 leading-relaxed font-medium"></p>
-            <button onclick="advanceAppTour()" id="tourBtn" class="w-full bg-rose-600 text-white text-xs font-bold py-2.5 rounded-xl font-mono tracking-wider">NEXT NODAL STEP</button>
-        </div>
-    </div>
-
     <div id="mainDashboard" class="hidden flex-1 flex min-h-screen overflow-hidden">
-        
         <aside class="w-64 app-nav flex flex-col justify-between p-4 shrink-0 h-screen sticky top-0">
             <div class="space-y-6">
                 <div>
-                    <h2 class="text-lg font-bold font-serif tracking-tight text-rose-500">Abhinetri Core</h2>
+                    <h2 class="text-lg font-bold font-serif tracking-tight text-[#991b1b]">Abhinetri Core</h2>
                     <p class="text-[9px] font-mono text-zinc-500 uppercase tracking-wider" id="welcomeUser"></p>
                 </div>
                 
                 <nav class="flex flex-col space-y-1 text-xs font-bold uppercase tracking-wider font-mono">
-                    <button onclick="switchWorkspaceTab('scripts')" id="btn-scripts" class="w-full text-left px-3 py-3 rounded-xl text-rose-500 bg-rose-950/20 active">● Monologue Vault</button>
+                    <button onclick="switchWorkspaceTab('scripts')" id="btn-scripts" class="w-full text-left px-3 py-3 rounded-xl text-[#991b1b] bg-rose-950/20 active">● Monologue Vault</button>
                     <button onclick="switchWorkspaceTab('vocal')" id="btn-vocal" class="w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200">○ Riyaz Matrix</button>
                     <button onclick="switchWorkspaceTab('body')" id="btn-body" class="w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200">○ Body Language</button>
                     <button onclick="switchWorkspaceTab('technicalities')" id="btn-technicalities" class="w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200">○ Technicalities</button>
@@ -154,69 +162,60 @@
 
             <div class="space-y-3 pt-4 border-t border-zinc-900">
                 <div class="flex flex-col space-y-1.5 text-[9px] font-mono text-zinc-400">
-                    <button onclick="toggleAtmosphere('dark')" id="mDark" class="w-full text-left font-bold text-rose-500">● STAGE DARK MODE</button>
+                    <button onclick="toggleAtmosphere('dark')" id="mDark" class="w-full text-left font-bold text-[#991b1b]">● STAGE DARK MODE</button>
                     <button onclick="toggleAtmosphere('morning')" id="mMorn" class="w-full text-left font-bold hover:text-blue-500 transition">○ SPOTLIGHT MILK MODE</button>
                 </div>
                 <div class="space-y-1">
                     <label class="text-[9px] font-mono text-zinc-500 block">STAGE DIMMER INTERNALS</label>
-                    <input type="range" id="brightnessSlider" min="0" max="65" value="0" class="w-full accent-rose-600 bg-zinc-800 h-1 rounded" oninput="adjustGlobalBrightness(this.value)">
+                    <input type="range" id="brightnessSlider" min="0" max="65" value="0" class="w-full accent-[#991b1b] bg-zinc-800 h-1 rounded" oninput="adjustGlobalBrightness(this.value)">
                 </div>
             </div>
         </aside>
 
         <main class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
-            
-            <div class="app-card rounded-xl p-4 border-l-4 border-rose-600">
+            <div class="app-card rounded-xl p-4 border-l-4 border-[#991b1b]">
                 <p id="dailyQuoteText" class="text-xs italic font-medium leading-relaxed text-zinc-300"></p>
-                <span id="dailyQuoteAuthor" class="text-[9px] font-mono font-bold block text-rose-500 mt-1 uppercase tracking-wider"></span>
+                <span id="dailyQuoteAuthor" class="text-[9px] font-mono font-bold block text-[#991b1b] mt-1 uppercase tracking-wider"></span>
             </div>
 
             <div id="tab-scripts" class="tab-content active space-y-4"></div>
 
             <div id="tab-vocal" class="tab-content space-y-6">
                 <div class="app-card rounded-xl p-5 space-y-4">
-                    <div class="flex justify-between items-center"><h3 class="text-xs font-bold uppercase tracking-widest text-rose-500 font-mono">Volume Amplitude Scale Matrix</h3><span id="volDisplay" class="text-xs font-mono text-zinc-400">Target: 55dB (Projection Room)</span></div>
-                    <input type="range" min="10" max="100" value="55" class="w-full accent-rose-600 bg-zinc-800 h-1.5 rounded-lg" oninput="document.getElementById('volDisplay').innerText = `Target: ${this.value}dB (Room Range)`">
+                    <div class="flex justify-between items-center"><h3 class="text-xs font-bold uppercase tracking-widest text-[#991b1b] font-mono">Volume Amplitude Scale Matrix</h3><span id="volDisplay" class="text-xs font-mono text-zinc-400">Target: 55dB (Projection Room)</span></div>
+                    <input type="range" min="10" max="100" value="55" class="w-full accent-[#991b1b] bg-zinc-800 h-1.5 rounded-lg" oninput="document.getElementById('volDisplay').innerText = `Target: ${this.value}dB (Room Range)`">
                     <p class="text-xs text-zinc-400 leading-relaxed font-medium">Calibrate abdominal column air displacement vectors to hit target acoustic parameters safely across long theatrical runtime sessions.</p>
                 </div>
                 <div class="app-card rounded-xl p-5 space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-widest text-rose-500 font-mono">Vachika Fundamental Frequency Matrix</h3>
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-[#991b1b] font-mono">Vachika Fundamental Frequency Matrix</h3>
                     <div class="grid grid-cols-5 gap-2" id="pitchContainer"></div>
                 </div>
                 <div class="app-card rounded-xl p-5 space-y-4">
-                    <div class="flex justify-between items-center"><h3 class="text-xs font-bold uppercase tracking-widest text-rose-500 font-mono">Metronome Timing Matrix</h3><span id="bpmDisplay" class="text-sm font-bold font-mono text-zinc-400">100 BPM</span></div>
-                    <input type="range" id="bpmSlider" min="45" max="200" value="100" class="w-full accent-rose-600 bg-zinc-800 rounded-lg h-1.5" oninput="updateBPM(this.value)">
+                    <div class="flex justify-between items-center"><h3 class="text-xs font-bold uppercase tracking-widest text-[#991b1b] font-mono">Metronome Timing Matrix</h3><span id="bpmDisplay" class="text-sm font-bold font-mono text-zinc-400">100 BPM</span></div>
+                    <input type="range" id="bpmSlider" min="45" max="200" value="100" class="w-full accent-[#991b1b] bg-zinc-800 rounded-lg h-1.5" oninput="updateBPM(this.value)">
                     <button onclick="toggleMetronome()" id="metroBtn" class="w-full bg-zinc-900 border border-zinc-800 text-xs font-mono font-bold py-3 rounded-xl tracking-widest text-slate-200">START PACING SEQUENCE</button>
                 </div>
             </div>
 
             <div id="tab-body" class="tab-content space-y-6">
                 <section class="space-y-3">
-                    <h3 class="text-sm font-bold font-serif border-b border-zinc-900 pb-2 text-rose-500">Postural Structural Asanas</h3>
+                    <h3 class="text-sm font-bold font-serif border-b border-zinc-900 pb-2 text-[#991b1b]">Postural Structural Asanas</h3>
                     <div class="grid md:grid-cols-2 gap-4" id="yogaContainer"></div>
                 </section>
                 <section class="space-y-3">
-                    <h3 class="text-sm font-bold font-serif border-b border-zinc-900 pb-2 text-rose-500">Mime Spatial Mechanics</h3>
+                    <h3 class="text-sm font-bold font-serif border-b border-zinc-900 pb-2 text-[#991b1b]">Mime Spatial Mechanics</h3>
                     <div class="grid md:grid-cols-2 gap-4" id="mimeContainer"></div>
                 </section>
                 <section class="space-y-3">
-                    <h3 class="text-sm font-bold font-serif border-b border-zinc-900 pb-2 text-rose-500">Facial & Rasa Micro-Expression Drills</h3>
+                    <h3 class="text-sm font-bold font-serif border-b border-zinc-900 pb-2 text-[#991b1b]">Facial & Rasa Micro-Expression Drills</h3>
                     <div class="grid md:grid-cols-2 gap-4" id="facialContainer"></div>
-                </section>
-                <section class="space-y-3">
-                    <h3 class="text-sm font-bold font-serif border-b border-zinc-900 pb-2 text-rose-500">Behavioral Research Metrics (Body Communication Tips)</h3>
-                    <div class="app-card p-5 rounded-xl border-l-4 border-amber-500 space-y-2">
-                        <span class="bg-black/40 text-amber-500 border border-zinc-900 text-[9px] px-2 py-0.5 rounded font-mono font-bold">HARVARD UNIVERSITY COGNITIVE PERFORMANCE DECK</span>
-                        <h4 class="text-xs font-bold">The Somatic Power Pose Execution Pipeline</h4>
-                        <p class="text-xs text-zinc-400 leading-relaxed font-medium">Maintaining open chest expansiveness and relaxed shoulders for exactly 120 seconds stabilizes your hormonal footprint—minimizing cortisol spikes by up to 25% while maximizing alpha-level baseline confidence ahead of high-ticket professional casting adjustments.</p>
-                    </div>
                 </section>
             </div>
 
             <div id="tab-technicalities" class="tab-content space-y-4">
                 <div class="grid md:grid-cols-2 gap-4">
                     <div class="app-card p-5 rounded-xl space-y-2">
-                        <span class="text-rose-500 font-mono text-[9px] font-bold block">INDIAN METHOD LOGIC (PRASANNA SYSTEM)</span>
+                        <span class="text-[#991b1b] font-mono text-[9px] font-bold block">INDIAN METHOD LOGIC (PRASANNA SYSTEM)</span>
                         <h4 class="text-xs font-bold">Natya Shastra Body Grounding Blocks</h4>
                         <p class="text-xs text-zinc-400 leading-relaxed font-medium">Rooting weight delivery vectors straight into your feet ensures full integration between body and emotion. Never try to force an emotional state artificially; focus entirely on the physical interactions occurring within your immediate spatial environment.</p>
                     </div>
@@ -235,29 +234,29 @@
         </main>
     </div>
 
-    <div id="monologueModal" class="hidden fixed inset-0 bg-[#040508] z-50 p-6 flex flex-col justify-between transition-all">
+    <div id="monologueModal" class="hidden fixed inset-0 bg-[#05070d] z-50 p-6 flex flex-col justify-between transition-all">
         <div class="max-w-3xl mx-auto w-full">
-            <div class="flex justify-between items-start border-b border-zinc-900 pb-3">
+            <div class="flex justify-between items-start border-b border-zinc-900/60 pb-3">
                 <div>
-                    <span id="modalMeta" class="text-[8px] font-mono text-rose-500 uppercase tracking-widest font-bold"></span>
+                    <span id="modalMeta" class="text-[8px] font-mono text-[#991b1b] uppercase tracking-widest font-bold"></span>
                     <h2 id="modalTitle" class="text-md font-bold font-serif tracking-tight mt-0.5"></h2>
                 </div>
-                <button onclick="closeModal()" class="text-zinc-500 text-2xl p-1 leading-none hover:text-rose-500 transition">&times;</button>
+                <button onclick="closeModal()" class="text-zinc-500 text-2xl p-1 leading-none hover:text-[#991b1b] transition">&times;</button>
             </div>
             
-            <div id="contextFrameworkBox" class="bg-zinc-950 border border-zinc-900 p-3 rounded-lg my-3 text-[10px] text-zinc-400 space-y-1">
+            <div id="contextFrameworkBox" class="bg-zinc-950/60 border border-zinc-900 p-3 rounded-lg my-3 text-[10px] text-zinc-400 space-y-1">
                 <p><strong>CONTEXT ARCHITECTURE:</strong> <span id="contextPlay" class="text-zinc-200 font-medium"></span></p>
                 <p><strong>STRATEGY OBJECTIVE:</strong> <span id="contextObjective" class="text-zinc-200 font-medium"></span></p>
                 <p><strong>BACKGROUND CONFIGURATION:</strong> <span id="contextCharacter" class="text-zinc-200 font-medium"></span></p>
             </div>
 
-            <div class="bg-zinc-950 border border-zinc-900 rounded-xl p-3 space-y-2 text-xs">
+            <div class="bg-zinc-950/40 border border-zinc-900 rounded-xl p-3 space-y-2 text-xs">
                 <div class="flex flex-wrap gap-1" id="fontStylesContainer"></div>
-                <div class="flex items-center justify-between pt-2 border-t border-zinc-900">
+                <div class="flex items-center justify-between pt-2 border-t border-zinc-900/60">
                     <span class="text-[8px] font-mono text-zinc-500 uppercase font-bold tracking-wider">Dynamic Typographic Scale Modifier</span>
                     <div class="flex items-center space-x-2">
                         <button onclick="adjustFontSize(-2)" class="bg-zinc-900 text-slate-200 px-2.5 py-1 rounded-lg text-xs font-bold">-A</button>
-                        <span id="fontSizeDisplay" class="font-mono text-[10px] text-rose-500">22px</span>
+                        <span id="fontSizeDisplay" class="font-mono text-[10px] text-[#991b1b]">22px</span>
                         <button onclick="adjustFontSize(2)" class="bg-zinc-900 text-slate-200 px-2.5 py-1 rounded-lg text-xs font-bold">+A</button>
                     </div>
                 </div>
@@ -268,32 +267,20 @@
             <div id="modalBody" class="space-y-6" style="font-size: 22px;"></div>
         </div>
 
-        <div class="max-w-3xl mx-auto w-full pt-3 border-t border-zinc-900 flex space-x-2">
-            <button onclick="closeModal()" class="flex-1 bg-rose-600 text-white font-mono text-[10px] font-bold py-3.5 rounded-xl uppercase tracking-widest shadow-xl">Complete Reading Pass</button>
+        <div class="max-w-3xl mx-auto w-full pt-3 border-t border-zinc-900/60 flex space-x-2">
+            <button onclick="closeModal()" class="flex-1 bg-[#991b1b] text-white font-mono text-[10px] font-bold py-3.5 rounded-xl uppercase tracking-widest shadow-xl">Complete Reading Pass</button>
         </div>
     </div>
 
     <script>
-        // PRODUCTION ANALYTICS REPOSITORIES (Hooked into active layout configurations)
         const BACKEND_TELEMETRY_API = "https://formspree.io/f/xknwpyrz";
 
         let currentSize = 22;
         let isMetroPlaying = false;
         let metroInterval = null;
-        let activeTourStep = 0;
-
-        // Telemetry Engine State Memory
         let currentTabId = "scripts";
         let tabEntryTimestamp = Date.now();
-        let watchTimeDataStore = {
-            scripts: 0, vocal: 0, body: 0, technicalities: 0, poems: 0, literature: 0, theatre: 0, cinema: 0
-        };
-
-        const tourSteps = [
-            { title: "Dynamic Dimmer Module", text: "Use the internal stage dimmer control element down in the left navigation panel to dial back luminosity levels to match the lighting setup of live theater backstages or film sets." },
-            { title: "Somatic Training Blocks", text: "Track the newly compiled Body Language suite complete with high-resolution imagery blocks for daily structural yoga postures, mime patterns, and micro-expressions." },
-            { title: "Pro Literature Databases", text: "Navigate through separate tabs explicitly generated for Multilingual Sonnets and Professional Curated Play/Short Story recommendations." }
-        ];
+        let watchTimeDataStore = { scripts: 0, vocal: 0, body: 0, technicalities: 0, poems: 0, literature: 0, theatre: 0, cinema: 0 };
 
         const continuousQuotes = [
             { quote: "Never separate your technical vocal or physical apparatus from the character's internal driving objective.", author: "Constantin Stanislavski" },
@@ -329,19 +316,19 @@
                 id: "p1", title: "Sonnet 29: Structural Isolation Pass", writer: "William Shakespeare", type: "en",
                 play: "English Renaissance Sonnet Architecture", objective: "Iambic pentameter rhythmic processing and quick tone shifts.",
                 character: "Author Profile: Classic historical benchmark for metered emotional changes.",
-                text: "<p>When, in disgrace with fortune and men's eyes,<br>I all alone beweep my outcast state,<br>And trouble deaf heaven with my bootless cries,<br>And look upon myself and curse my fate...<br>Haply I think on thee, and then my state,<br>Like to the lark at break of day arising<br>From sullen earth, sings hymns at heaven's gate.</p><hr class='border-zinc-800 my-3'/><p class='text-xs text-zinc-400'><strong>Semantic Interpretation:</strong> Tracks the mental transition from absolute despair to transcendent clarity within 14 bars. Focus on the breath accentuation during the word 'Haply'.</p>"
+                text: "<p>When, in disgrace with fortune and men's eyes,<br>I all alone beweep my outcast state,<br>And trouble deaf heaven with my bootless cries,<br>And look upon myself and curse my fate...<br>Haply I think on thee, and then my state,<br>Like to the lark at break of day arising<br>From sullen earth, sings hymns at heaven's gate.</p><hr class='border-zinc-800 my-3'/><p class='text-xs text-zinc-500'><strong>Semantic Interpretation:</strong> Tracks the mental transition from absolute despair to transcendent clarity within 14 bars. Focus on the breath accentuation during the word 'Haply'.</p>"
             },
             {
                 id: "p2", title: "Where The Mind Is Without Fear (চিত্ত যেথা ভয়শূন্য)", writer: "Rabindranath Tagore", type: "bn",
                 play: "Gitanjali Structural Sequence", objective: "High-register projection development and clear chest voice resonance.",
                 character: "Author Profile: Celebrated Indian writer, master of aesthetic phrasing.",
-                text: "<p>চিত্ত যেথা ভয়শূন্য, উচ্চ যেথা শির,<br>জ্ঞান যেথা মুক্ত, যেথা গৃহের প্রাচীর<br>আপন প্রাঙ্গণতলে দিবসশর্বরী<br>বসুধারে রাখে নাই খণ্ড ক্ষুদ্র করি...<br>ভারতের সেই স্বর্গে করো জাগরিত।</p><hr class='border-zinc-800 my-3'/><p class='text-xs text-zinc-400'><strong>Semantic Interpretation:</strong> Demands strong vocal clarity. Every syllable should be articulated cleanly using proper abdominal muscle control.</p>"
+                text: "<p>চিত্ত যেথা ভয়শূন্য, উচ্চ যেথা শির,<br>জ্ঞান যেথা মুক্ত, যেথা গৃহের প্রাচীর<br>আপন প্রাঙ্গণতলে দিবসশর্বরী<br>বসুধারে রাখে নাই খণ্ড ক্ষুদ্র করি...<br>ভারতের সেই স্বর্গে করো জাগরিত।</p><hr class='border-zinc-800 my-3'/><p class='text-xs text-zinc-500'><strong>Semantic Interpretation:</strong> Demands strong vocal clarity. Every syllable should be articulated cleanly using proper abdominal muscle control.</p>"
             },
             {
                 id: "p3", title: "Madhushala (The Tavern Core)", writer: "Harivansh Rai Bachchan", type: "hi",
                 play: "Modern Hindi Chhayavaad Repository", objective: "Rhythmic breath pacing and dual phonetic layout matching.",
                 character: "Author Profile: Renowned Hindi poet focused on symbolic romantic lyricism.",
-                text: "<p class='f-hi-martel text-rose-500 text-lg'>मृदु भावों के अंगूरों की आज बना लाया हाला,</p><p class='italic text-zinc-400 text-xs mt-1'>(Mridu bhaavon ke angooron kee aaj bana laaya haala)</p><p class='f-hi-martel text-rose-500 text-lg mt-4'>प्रियतम, अपने ही हाथों से आज पिलाऊंगा प्याला।</p><p class='italic text-zinc-400 text-xs mt-1'>(Priyatam, apne hee haathon se aaj pilaunga pyaala)</p><hr class='border-zinc-800 my-3'/><p class='text-xs text-zinc-400'><strong>Semantic Meaning & Background:</strong> 'I have formulated wine crafted from delicate internal observations... I shall serve it manually.' Absolute benchmark tool for training classical micro-vocal inflections.</p>"
+                text: "<p class='f-hi-martel text-rose-800 text-lg'>मृदु भावों के अंगूरों की आज बना लाया हाला,</p><p class='italic text-zinc-500 text-xs mt-1'>(Mridu bhaavon ke angooron kee aaj bana laaya laaha)</p><p class='f-hi-martel text-rose-800 text-lg mt-4'>प्रियतम, अपने ही हाथों से आज पिलाऊंगा प्याला।</p><p class='italic text-zinc-500 text-xs mt-1'>(Priyatam, apne hee haathon se aaj pilaunga pyaala)</p><hr class='border-zinc-800 my-3'/><p class='text-xs text-zinc-500'><strong>Semantic Meaning:</strong> Benchmark tool for training classical micro-vocal inflections.</p>"
             }
         ];
 
@@ -366,20 +353,10 @@
             { type: "Short Story", language: "Hindi", title: "Idgah", writer: "Munshi Premchand", context: "A moving study of empathy, sacrifice, and deep emotional sensitivity captured beautifully through the eyes of a young child named Hamid." }
         ];
 
-        const theatreTracks = [
-            { title: "NSD Repertory Assembly", venue: "Kamani Auditorium", details: "Directed by Prof. Prasanna. Exploring traditional body-grounding methods and vocal alignment tools.", banner: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80" }
-        ];
-
-        const cinemaTracks = [
-            { title: "A Separation (Master Series)", director: "Asghar Farhadi", metrics: "IMDb 8.3", notes: "Flawless real-world domestic pacing framework tracking subtle shifts in performance style.", banner: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80" }
-        ];
-
         window.onload = function() {
             executeBootEngineClapCurtain();
             checkUserRegistryState();
             renderDynamicModules();
-            
-            // Start tracking initial default tab
             tabEntryTimestamp = Date.now();
         }
 
@@ -435,26 +412,18 @@
                 registeredAt: new Date().toISOString()
             };
             localStorage.setItem('abhinetri_core_profile', JSON.stringify(data));
-            
-            // Fire profile data upstream to backend instantly on registration
             dispatchTelemetryPayload("USER_REGISTRATION", { profile: data });
-
             checkUserRegistryState();
-            activeTourStep = 0;
-            triggerTourStep();
         }
 
-        // TELEMETRY ENGINE DISPATCH CORNER
         function syncTabWatchTimeMetrics() {
             const elapsedSeconds = Math.round((Date.now() - tabEntryTimestamp) / 1000);
             if (elapsedSeconds > 0 && watchTimeDataStore.hasOwnProperty(currentTabId)) {
                 watchTimeDataStore[currentTabId] += elapsedSeconds;
-                
                 const profile = JSON.parse(localStorage.getItem('abhinetri_core_profile') || '{}');
                 dispatchTelemetryPayload("WATCH_TIME_UPDATE", {
                     user: profile.email || "anonymous",
                     name: profile.name || "unknown",
-                    phone: profile.phone || "unknown",
                     activeSection: currentTabId,
                     secondsSpentInSession: elapsedSeconds,
                     totalCumulativeWatchTime: watchTimeDataStore
@@ -464,51 +433,27 @@
         }
 
         function dispatchTelemetryPayload(eventType, payload) {
-            const outboundPackage = {
-                event: eventType,
-                timestamp: new Date().toISOString(),
-                data: payload
-            };
-
-            // Non-blocking background API execution via fetch pipeline
             fetch(BACKEND_TELEMETRY_API, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(outboundPackage)
-            }).catch(err => console.log("Telemetry safely buffered locally. Ready for backend node link."));
+                body: JSON.stringify({ event: eventType, timestamp: new Date().toISOString(), data: payload })
+            }).catch(() => {});
         }
 
-        // Ensure closing or backgrounding the tab syncs trailing watch metrics
         document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === "hidden") {
-                syncTabWatchTimeMetrics();
-            }
+            if (document.visibilityState === "hidden") syncTabWatchTimeMetrics();
         });
-
-        function triggerTourStep() {
-            const modal = document.getElementById('tourModal');
-            if (activeTourStep < tourSteps.length) {
-                modal.classList.remove('hidden');
-                document.getElementById('tourTitle').innerText = tourSteps[activeTourStep].title;
-                document.getElementById('tourText').innerText = tourSteps[activeTourStep].text;
-                if (activeTourStep === tourSteps.length - 1) document.getElementById('tourBtn').innerText = "LAUNCH STUDIO SPACE";
-            } else {
-                modal.classList.add('hidden');
-            }
-        }
-
-        function advanceAppTour() { activeTourStep++; triggerTourStep(); }
 
         function toggleAtmosphere(mode) {
             const b = document.body;
             if (mode === 'dark') {
                 b.className = "theme-dark select-none relative min-h-screen flex";
-                document.getElementById('mDark').className = "text-rose-500 font-bold w-full text-left";
+                document.getElementById('mDark').className = "text-[#991b1b] font-bold w-full text-left";
                 document.getElementById('mMorn').className = "hover:text-blue-500 font-bold text-zinc-500 w-full text-left";
             } else {
                 b.className = "theme-morning select-none relative min-h-screen flex";
                 document.getElementById('mMorn').className = "text-blue-500 font-bold w-full text-left";
-                document.getElementById('mDark').className = "hover:text-rose-500 font-bold text-zinc-500 w-full text-left";
+                document.getElementById('mDark').className = "hover:text-[#991b1b] font-bold text-zinc-500 w-full text-left";
             }
         }
 
@@ -517,7 +462,6 @@
         }
 
         function switchWorkspaceTab(id) {
-            // Sync current tab watch metrics before changing focus state
             syncTabWatchTimeMetrics();
             currentTabId = id;
 
@@ -527,13 +471,13 @@
                 btn.className = "w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200";
             });
             const isDark = document.body.classList.contains('theme-dark');
-            document.getElementById(`btn-${id}`).className = `w-full text-left px-3 py-3 rounded-xl ${isDark ? 'text-rose-500 bg-rose-950/10' : 'text-blue-500 bg-blue-50'} font-bold active`;
+            document.getElementById(`btn-${id}`).className = `w-full text-left px-3 py-3 rounded-xl ${isDark ? 'text-[#991b1b] bg-rose-950/10' : 'text-blue-500 bg-blue-50'} font-bold active`;
         }
 
         function renderDynamicModules() {
             document.getElementById('tab-scripts').innerHTML = scriptsDatabase.map(s => `
-                <div onclick="openModal('script', '${s.id}')" class="app-card p-5 rounded-xl cursor-pointer hover:border-rose-500 transition shadow-md space-y-2">
-                    <span class="bg-black/30 text-rose-500 border border-zinc-900 text-[9px] px-2.5 py-0.5 rounded font-mono font-bold uppercase tracking-wider">${s.meta}</span>
+                <div onclick="openModal('script', '${s.id}')" class="app-card p-5 rounded-xl cursor-pointer hover:border-[#991b1b] transition shadow-md space-y-2">
+                    <span class="bg-black/30 text-[#991b1b] border border-zinc-900 text-[9px] px-2.5 py-0.5 rounded font-mono font-bold uppercase tracking-wider">${s.meta}</span>
                     <h3 class="text-sm font-bold font-serif text-slate-200">${s.title}</h3>
                 </div>
             `).join('');
@@ -556,7 +500,7 @@
                     <div class="p-4 space-y-3 text-xs">
                         <h4 class="font-bold text-sm text-slate-200">${m.title}</h4>
                         <p class="text-zinc-400 leading-relaxed font-medium">${m.details}</p>
-                        <a href="${m.link}" target="_blank" class="inline-block bg-zinc-900 border border-zinc-800 text-rose-500 px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold tracking-wider uppercase">LAUNCH YOUTUBE LESSON &rarr;</a>
+                        <a href="${m.link}" target="_blank" class="inline-block bg-zinc-900 border border-zinc-800 text-[#991b1b] px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold tracking-wider uppercase">LAUNCH YOUTUBE LESSON &rarr;</a>
                     </div>
                 </div>
             `).join('');
@@ -572,8 +516,8 @@
             `).join('');
 
             document.getElementById('tab-poems').innerHTML = poemsDatabase.map(p => `
-                <div onclick="openModal('poem', '${p.id}')" class="app-card p-5 rounded-xl cursor-pointer hover:border-rose-500 transition shadow-md space-y-2">
-                    <span class="bg-black/30 text-amber-500 border border-zinc-900 text-[9px] px-2.5 py-0.5 rounded font-mono font-bold uppercase tracking-wider">${p.writer} • ${p.type.toUpperCase()}</span>
+                <div onclick="openModal('poem', '${p.id}')" class="app-card p-5 rounded-xl cursor-pointer hover:border-[#991b1b] transition shadow-md space-y-2">
+                    <span class="bg-black/30 text-amber-600 border border-zinc-900 text-[9px] px-2.5 py-0.5 rounded font-mono font-bold uppercase tracking-wider">${p.writer} • ${p.type.toUpperCase()}</span>
                     <h3 class="text-sm font-bold font-serif text-slate-200">${p.title}</h3>
                 </div>
             `).join('');
@@ -582,7 +526,7 @@
                 <div class="app-card p-4 rounded-xl space-y-2 flex flex-col justify-between shadow-md">
                     <div>
                         <div class="flex justify-between items-center text-[9px] font-mono font-bold">
-                            <span class="text-rose-500 bg-rose-500/5 px-2 py-0.5 rounded border border-rose-900/20">${l.type.toUpperCase()}</span>
+                            <span class="text-[#991b1b] bg-rose-500/5 px-2 py-0.5 rounded border border-rose-900/20">${l.type.toUpperCase()}</span>
                             <span class="text-zinc-500">${l.language}</span>
                         </div>
                         <h4 class="text-sm font-bold mt-2 font-serif text-slate-200">${l.title}</h4>
@@ -594,33 +538,31 @@
 
             const letters = ['C', 'C#', 'D', 'D#', 'E', 'F', 'G', 'A', 'B'];
             document.getElementById('pitchContainer').innerHTML = letters.map(l => `
-                <button onclick="fireAcousticNode('${l}')" class="bg-black/20 border border-zinc-800 text-zinc-400 font-mono font-bold py-3.5 rounded-xl text-xs transition active:scale-95 hover:border-rose-500/40">${l}</button>
+                <button onclick="fireAcousticNode('${l}')" class="bg-black/20 border border-zinc-800 text-zinc-400 font-mono font-bold py-3.5 rounded-xl text-xs transition active:scale-95 hover:border-[#991b1b]/40">${l}</button>
             `).join('');
 
-            document.getElementById('theatreContainer').innerHTML = theatreTracks.map(t => `
+            document.getElementById('theatreContainer').innerHTML = `
                 <div class="app-card rounded-xl overflow-hidden shadow-lg flex flex-col">
-                    <img src="${t.banner}" class="w-full h-32 object-cover" alt="Production Tracking Poster">
+                    <img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80" class="w-full h-32 object-cover" alt="Production Tracking Poster">
                     <div class="p-4 space-y-1">
-                        <h4 class="text-xs font-bold text-slate-200">${t.title}</h4>
-                        <p class="text-[10px] text-rose-500 font-mono tracking-wider uppercase font-semibold">${t.venue}</p>
-                        <p class="text-xs text-zinc-400 leading-relaxed font-medium pt-1">${t.details}</p>
+                        <h4 class="text-xs font-bold text-slate-200">NSD Repertory Assembly</h4>
+                        <p class="text-[10px] text-[#991b1b] font-mono tracking-wider uppercase font-semibold">Kamani Auditorium</p>
+                        <p class="text-xs text-zinc-400 leading-relaxed font-medium pt-1">Directed by Prof. Prasanna. Exploring traditional body-grounding methods and vocal alignment tools.</p>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
 
-            document.getElementById('cinemaContainer').innerHTML = cinemaTracks.map(c => `
+            document.getElementById('cinemaContainer').innerHTML = `
                 <div class="app-card rounded-xl overflow-hidden shadow-lg flex flex-col">
-                    <img src="${c.banner}" class="w-full h-32 object-cover" alt="Cinema Graphic Asset">
+                    <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80" class="w-full h-32 object-cover" alt="Cinema Graphic Asset">
                     <div class="p-4 space-y-1">
                         <div class="flex justify-between items-center">
-                            <h4 class="text-xs font-bold text-slate-200">${c.title}</h4>
-                            <span class="text-[9px] bg-black/40 text-amber-500 font-mono font-bold border border-zinc-800 px-1.5 py-0.5 rounded">${c.metrics}</span>
+                            <h4 class="text-xs font-bold text-slate-200">A Separation (Master Series)</h4>
+                            <span class="text-[9px] bg-black/40 text-amber-500 font-mono font-bold border border-zinc-800 px-1.5 py-0.5 rounded">IMDb 8.3</span>
                         </div>
-                        <p class="text-[10px] text-zinc-500 font-medium">Director: ${c.director}</p>
-                        <p class="text-xs text-zinc-400 leading-relaxed font-medium pt-1 italic">${c.notes}</p>
+                        <p class="text-[10px] text-zinc-500 font-medium">Director: Asghar Farhadi</p>
+                        <p class="text-xs text-zinc-400 leading-relaxed font-medium pt-1 italic">Flawless real-world domestic pacing framework tracking subtle shifts in performance style.</p>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
         }
 
         function openModal(category, id) {
