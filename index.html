@@ -2,142 +2,344 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abhinetri AI</title>
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%236b7280'><path d='M50 15C30 15 15 30 15 50c0 15 8 28 20 33v-8c-7-4-12-12-12-25 0-14 12-25 27-25s27 11 27 25c0 13-5 21-12 25v8c12-5 20-18 20-33 0-20-15-35-35-35z'/><circle cx='40' cy='45' r='4'/><circle cx='60' cy='45' r='4'/><path d='M40 65s5 5 10 5 10-5 10-5' stroke='%236b7280' stroke-width='3' fill='none'/></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%236b7280'><path d='M50 15C30 15 15 30 15 50c0 15 8 28 20 33v-8c-7-4-12-12-12-25 0-14 12-25 27-25s27 11 27 25c0 13-5 21-12 25v8c12-5 20-18 20-33 0-20-15-35-35-35z'/><circle cx='40' cy='45' r='4'/><circle cx='60' cy='45' r='4'/><path d='M40 65s5 5 10 5 10-5 10-5' stroke='%236b7280' stroke-width='3' fill='none'/></svg>">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #090a0f; color: #f1f5f9; }
-        .font-serif { font-family: 'Playfair Display', serif; }
-        .theatre-glow { box-shadow: 0 0 40px rgba(188, 148, 243, 0.05); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        body { background-color: #121417; color: #e2e8f0; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .font-style-sans .en-text { font-family: 'Inter', sans-serif; }
+        .font-style-sans .bn-text { font-family: 'Hind Siliguri', sans-serif; }
+        .font-style-serif .en-text { font-family: 'Playfair Display', serif; }
+        .font-style-serif .bn-text { font-family: 'Noto Serif Bengali', serif; }
+        .bn-text { line-height: 1.85; letter-spacing: 0.01em; }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="bg-[#121417]">
 
-    <!-- 🔒 STAGE 1: ONBOARDING ACCREDITATION LOCK (GATEKEEPER VIEW) -->
-    <div id="authGate" class="w-full max-w-md bg-[#131520] border border-gray-800/80 rounded-3xl p-6 space-y-6 theatre-glow">
-        <div class="text-center space-y-2">
-            <div class="w-14 h-14 bg-purple-500/10 border border-purple-500/30 text-purple-400 rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">🎭</div>
-            <h1 class="font-serif text-2xl font-bold text-white tracking-wide">Abhinetri AI</h1>
-            <p class="text-xs text-gray-400 font-light">Enter backstage credentials to sync individual performance desk</p>
+    <div id="authGate" class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-[#1e222b] border border-[#2e3440] p-6 rounded-2xl w-full max-w-md shadow-2xl">
+            <div class="flex flex-col items-center mb-6">
+                <svg class="w-14 h-14 text-gray-400 mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M50 15C30 15 15 30 15 50c0 15 8 28 20 33v-8c-7-4-12-12-12-25 0-14 12-25 27-25s27 11 27 25c0 13-5 21-12 25v8c12-5 20-18 20-33 0-20-15-35-35-35z"/>
+                    <circle cx="40" cy="45" r="4"/><circle cx="60" cy="45" r="4"/>
+                    <path d="M40 65s5 5 10 5 10-5 10-5" stroke="currentColor" stroke-width="3" fill="none"/>
+                </svg>
+                <h1 class="text-2xl font-bold tracking-tight text-gray-200">Abhinetri AI</h1>
+                <p class="text-xs text-gray-400 mt-1">Smart Actor Dashboard Access</p>
+            </div>
+            <form onsubmit="handleAuth(event)" class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 mb-1 tracking-widest">ARTIST FULL NAME</label>
+                    <input type="text" required id="authName" class="w-full bg-[#121417] border border-[#2e3440] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gray-500 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 mb-1 tracking-widest">PHONE NUMBER</label>
+                    <input type="tel" required id="authPhone" class="w-full bg-[#121417] border border-[#2e3440] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gray-500 text-gray-200" placeholder="+91 XXXXX XXXXX">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 mb-1 tracking-widest">EMAIL ADDRESS</label>
+                    <input type="email" required id="authEmail" class="w-full bg-[#121417] border border-[#2e3440] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gray-500 text-gray-200">
+                </div>
+                <button type="submit" class="w-full bg-gray-600 hover:bg-gray-500 text-white font-semibold py-3.5 rounded-xl transition text-sm tracking-wide mt-2">INITIALIZE SECURE SYSTEM</button>
+            </form>
         </div>
-
-        <form id="gateForm" onsubmit="handleOnboardingGateway(event)" class="space-y-4">
-            <div>
-                <label class="block text-[10px] font-bold uppercase tracking-widest text-purple-400 mb-1.5">Full Name</label>
-                <input type="text" id="gName" required placeholder="Shubhranil Bhowmick" class="w-full bg-[#090a0f] border border-gray-800 focus:border-purple-500/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all font-light">
-            </div>
-            <div>
-                <label class="block text-[10px] font-bold uppercase tracking-widest text-purple-400 mb-1.5">Phone Number</label>
-                <input type="tel" id="gPhone" required placeholder="+91 XXXXX XXXXX" class="w-full bg-[#090a0f] border border-gray-800 focus:border-purple-500/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all font-light">
-            </div>
-            <div>
-                <label class="block text-[10px] font-bold uppercase tracking-widest text-purple-400 mb-1.5">Email Address</label>
-                <input type="email" id="gEmail" required placeholder="creative.director@studio.com" class="w-full bg-[#090a0f] border border-gray-800 focus:border-purple-500/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all font-light">
-            </div>
-            <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-semibold text-xs uppercase tracking-widest py-3.5 rounded-xl shadow-lg shadow-purple-950/40 transition-all transform active:scale-[0.98] mt-2">
-                Verify Backstage Access
-            </button>
-        </form>
     </div>
 
-    <!-- 🎭 STAGE 2: APPLICATION RUNTIME ENVIRONMENT (HIDDEN UNTIL ACCREDITED) -->
-    <div id="mainDashboard" class="hidden w-full max-w-md flex flex-col space-y-6">
-        <header class="flex items-center justify-between border-b border-gray-900 pb-4">
-            <div>
-                <h2 class="text-sm font-bold tracking-widest uppercase text-purple-400">Abhinetri Core</h2>
-                <p id="welcomeUser" class="text-xs text-gray-500 font-light mt-0.5">Welcome Back</p>
+    <div id="mainDashboard" class="hidden min-h-screen pb-24">
+        <header class="bg-[#1e222b] border-b border-[#2e3440] p-4 sticky top-0 z-40 shadow-md">
+            <div class="max-w-4xl mx-auto flex justify-between items-center">
+                <div>
+                    <h2 class="text-md font-bold tracking-wider text-gray-200">ABHINETRI CORE</h2>
+                    <p class="text-xs text-gray-400 font-medium">Active Profile: <span id="welcomeUser" class="text-gray-200 font-semibold"></span></p>
+                </div>
+                <button onclick="toggleProfileEdit()" class="text-xs bg-[#2e3440] text-gray-300 hover:bg-gray-700 px-3 py-1.5 rounded-lg transition font-medium">Edit Profile</button>
             </div>
-            <span class="px-3 py-1 rounded-full text-[9px] bg-emerald-500/10 text-emerald-400 font-mono tracking-wider border border-emerald-500/20">🔒 ENCRYPTED PWA</span>
         </header>
 
-        <!-- Fresh Monologue Update Deck -->
-        <div class="bg-[#131520] border border-gray-800/80 rounded-2xl p-5 space-y-4">
-            <div class="flex items-center justify-between">
-                <span class="px-2 py-0.5 rounded text-[9px] bg-purple-500/10 text-purple-400 font-bold uppercase tracking-widest border border-purple-500/20">Daily Bulletin</span>
-                <span class="text-[10px] text-gray-500" id="liveDate">June 2026</span>
+        <div id="profileEditor" class="hidden bg-[#161920] border-b border-[#2e3440] p-4">
+            <div class="max-w-md mx-auto space-y-3 bg-[#1e222b] p-4 rounded-xl border border-[#2e3440]">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400">Modify Artist Attributes</h3>
+                <input type="text" id="editName" class="w-full bg-[#121417] border border-[#2e3440] rounded-lg p-2 text-sm text-gray-200" placeholder="Name">
+                <input type="tel" id="editPhone" class="w-full bg-[#121417] border border-[#2e3440] rounded-lg p-2 text-sm text-gray-200" placeholder="Phone">
+                <input type="email" id="editEmail" class="w-full bg-[#121417] border border-[#2e3440] rounded-lg p-2 text-sm text-gray-200" placeholder="Email">
+                <div class="flex space-x-2">
+                    <button onclick="saveProfileChanges()" class="bg-gray-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold w-full">Update Database</button>
+                    <button onclick="toggleProfileEdit()" class="bg-transparent text-gray-400 px-3 py-1.5 text-xs font-medium">Cancel</button>
+                </div>
             </div>
-            <h3 id="scriptTitle" class="font-serif text-xl font-bold text-white">Loading sync payload...</h3>
-            <p id="scriptContent" class="text-xs text-gray-400 font-light leading-relaxed">Reading deep dramatic registries...</p>
-            <button onclick="rotateScriptEngine()" class="w-full bg-[#090a0f] border border-gray-800 hover:border-purple-500/30 text-gray-300 font-medium text-xs py-2.5 rounded-xl transition-all">
-                🔄 Sync Fresh Curation Feed
-            </button>
         </div>
 
-        <!-- Isolated Secure Space -->
-        <div class="bg-[#131520] border border-gray-800/80 rounded-2xl p-5 space-y-3">
-            <h3 class="font-serif text-base font-bold text-white">Private Acting Workspace</h3>
-            <textarea id="localScriptSpace" placeholder="Paste target monologue segments or subtext directives here... (Isolated key locking active)" class="w-full h-24 bg-[#090a0f] border border-gray-800 focus:border-purple-500/40 rounded-xl p-3 text-xs text-white focus:outline-none transition-all font-light resize-none"></textarea>
-            <button onclick="commitLocalKeySecurely()" class="w-full bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 font-semibold text-xs tracking-wide py-2.5 rounded-xl transition-all">
-                Save Workspace Parameters
-            </button>
+        <nav class="bg-[#161920] border-b border-[#2e3440] overflow-x-auto whitespace-nowrap scrollbar-none sticky top-[61px] z-30">
+            <div class="max-w-4xl mx-auto flex px-2 text-sm font-semibold tracking-wide">
+                <button onclick="switchTab('english')" id="btn-english" class="px-4 py-3.5 text-gray-400 border-b-2 border-transparent active">English Scripts</button>
+                <button onclick="switchTab('bengali')" id="btn-bengali" class="px-4 py-3.5 text-gray-400 border-b-2 border-transparent">Bengali Scripts</button>
+                <button onclick="switchTab('auditions')" id="btn-auditions" class="px-4 py-3.5 text-gray-400 border-b-2 border-transparent">Auditions</button>
+                <button onclick="switchTab('voice')" id="btn-voice" class="px-4 py-3.5 text-gray-400 border-b-2 border-transparent">Vocal Core</button>
+                <button onclick="switchTab('feedback')" id="btn-feedback" class="px-4 py-3.5 text-gray-400 border-b-2 border-transparent">AI Feedback</button>
+            </div>
+        </nav>
+
+        <main class="max-w-4xl mx-auto p-4 mt-2">
+            <div id="tab-english" class="tab-content active space-y-4"></div>
+            <div id="tab-bengali" class="tab-content space-y-4"></div>
+            <div id="tab-auditions" class="tab-content space-y-4"></div>
+            <div id="tab-voice" class="tab-content space-y-4"></div>
+
+            <div id="tab-feedback" class="tab-content">
+                <div class="bg-[#1e222b] border border-[#2e3440] rounded-xl p-5 space-y-4 shadow-xl">
+                    <div>
+                        <h3 class="text-md font-bold text-gray-200 tracking-tight">AI Feedback Loop Engine</h3>
+                        <p class="text-xs text-gray-400 mt-0.5">Submit custom lines or deliveries to process tactical execution alignment maps.</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 mb-1 tracking-wider">SELECT INTENDED METHODOLOGY</label>
+                        <select id="aiMethod" class="w-full bg-[#121417] border border-[#2e3440] rounded-xl p-3 text-sm text-gray-300 font-medium focus:outline-none">
+                            <option value="Stanislavski">Stanislavski's Psychological Realism System</option>
+                            <option value="Indian Method">Prasanna's Indian Method of Acting (Aangika/Vachika Integration)</option>
+                            <option value="Chekhov">Michael Chekhov (Psychological Gesture & Resonance)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 mb-1 tracking-wider">TARGET SCRIPT TEXT OR DELIVERY BREAKDOWN</label>
+                        <textarea id="aiInput" class="w-full bg-[#121417] border border-[#2e3440] rounded-xl p-4 text-sm focus:outline-none focus:border-gray-500 h-32 text-gray-200 font-medium leading-relaxed" placeholder="Type or paste the specific scene script or delivery complications here..."></textarea>
+                    </div>
+
+                    <button onclick="runAIEngine()" class="w-full bg-gray-600 hover:bg-gray-500 text-white text-sm font-semibold py-3.5 rounded-xl transition tracking-wide shadow-md">GENERATE METHOD CRITIQUE</button>
+                    
+                    <div id="aiOutputBox" class="hidden bg-[#121417] border border-gray-800/80 rounded-xl p-4 text-sm space-y-2">
+                        <span class="text-[10px] bg-gray-800 text-gray-300 font-mono px-2 py-0.5 rounded uppercase tracking-wider font-bold">Abhinetri Core AI Feed</span>
+                        <div id="aiResponseText" class="text-gray-300 leading-relaxed font-medium pt-1 space-y-3"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="monologueModal" class="hidden fixed inset-0 bg-[#0e1013] z-50 p-5 flex flex-col justify-between font-style-sans">
+        <div class="max-w-2xl mx-auto w-full">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                <div>
+                    <span id="modalMeta" class="text-xs font-mono text-gray-500 uppercase tracking-widest font-bold"></span>
+                    <h2 id="modalTitle" class="text-xl font-bold text-gray-100 mt-1 tracking-tight"></h2>
+                </div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-3xl p-1 font-light transition">&times;</button>
+            </div>
+            
+            <div class="flex items-center justify-between bg-[#161920] border border-gray-800/60 rounded-xl px-4 py-2.5 my-4 text-xs font-medium text-gray-400">
+                <div class="flex items-center space-x-2">
+                    <span class="text-[10px] tracking-wider uppercase font-bold text-gray-500 mr-1">Font:</span>
+                    <button onclick="changeStyle('sans')" id="f-sans" class="bg-gray-700 text-gray-100 px-2.5 py-1 rounded font-semibold transition">Modern Sans</button>
+                    <button onclick="changeStyle('serif')" id="f-serif" class="hover:bg-gray-800 px-2.5 py-1 rounded transition">Script Serif</button>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-[10px] tracking-wider uppercase font-bold text-gray-500 mr-1">Size:</span>
+                    <button onclick="adjustFontSize(-2)" class="bg-[#1e222b] hover:bg-gray-800 text-gray-200 font-bold px-3 py-1 rounded text-sm">-A</button>
+                    <button onclick="adjustFontSize(2)" class="bg-[#1e222b] hover:bg-gray-800 text-gray-200 font-bold px-3 py-1 rounded text-sm">+A</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-2xl mx-auto w-full flex-1 overflow-y-auto py-2 my-2">
+            <div id="modalBody" class="text-gray-300 font-normal leading-relaxed space-y-6 tracking-wide" style="font-size: 20px;"></div>
+        </div>
+
+        <div class="max-w-2xl mx-auto w-full pt-3 border-t border-gray-900 pb-4">
+            <button onclick="closeModal()" class="w-full bg-gray-800 hover:bg-gray-700 text-gray-100 font-semibold py-3.5 rounded-xl transition text-sm tracking-wider">DONE READING</button>
         </div>
     </div>
 
-    <!-- ENGINE CONTROL HANDLERS -->
     <script>
-        const scriptRepository = [
-            { title: "Raktakarabi (Nandini's Stand)", text: "রঞ্জন কোথায়? তোমরা তাকে লোহার খাঁচায় পুরে রাখলেও তার গানকে তো তোমরা মারতে পারবে না। তোমাদের এই সোনার তাল আমার রঞ্জনের এক ফোঁটা হাসির চেয়েও তুচ্ছ!" },
-            { title: "The Bear (Carmy's Grief)", text: "I didn't want to go to culinary school, but my brother died and I realized I had to build something great because otherwise his quiet ending meant nothing. It meant we were both nothing." },
-            { title: "Karna Kunti Sangad (Tagore)", text: "আমি কর্ণ, রাধাপুত্র! আজ সমরাঙ্গনের প্রান্তে দাঁড়িয়ে শান্ত চিত্তে শুধু নিজের ভাগ্যের শেষ অঙ্কটুকু দেখতে চাই মা। আমাকে অর্জুনের প্রতিদ্বন্দ্বী হিসেবেই অমর হতে দাও।" }
-        ];
+        let currentSize = 20;
 
-        window.onload = function() {
-            document.getElementById('liveDate').innerText = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-            
-            // Checking if credential token is active inside memory cache
-            const cachedCredential = localStorage.getItem('abhinetri_identity');
-            if (cachedCredential) {
-                initializePlatformRuntime(JSON.parse(cachedCredential).name);
-            }
+        const dataPipeline = {
+            english: [
+                { id: "e1", date: "June 30, 2026", title: "The Bear (Carmy's Grief Breakout)", meta: "Dramatic Text - 2.5 Mins", langClass: "en-text", text: "<p>I didn't want to go to culinary school, but my brother died and I realized I had to build something great because otherwise his quiet ending meant nothing. It meant we were both nothing. Everyday I wake up and I feel like there's this heavy fluid in my chest pushing against my ribs, demanding that I turn something raw and broken into something precise, clean, flawless. You think I care about a Michelin star? I care about control. Because out there in the regular world, people disappear. Conversations fall apart. You can love someone with everything inside you and they still blow their brains out in the middle of a Tuesday afternoon.</p><p>But inside a kitchen, rules are absolute. The clock ticks exactly the same way. If you season a stock correctly, it rewards you with depth. It doesn't lie to you, it doesn't leave you stranded in an empty house with nothing but bills and regrets. I need this line to move. I need every cook to look me in the eye and understand that we are fighting against chaos itself.</p>" },
+                { id: "e2", date: "June 29, 2026", title: "The Standard System Engine", meta: "Psychological System - 3 Mins", langClass: "en-text", text: "<p>You keep talking about the performance as if it's clothing you can just put on and take off at the end of the night. It's not. If you are not accessing the genuine emotional memory buried in your nervous system, you are lying to yourself and you are insulting the people watching you. When you stand on that deck, under those hot lamps, you aren't pretending to be angry—you are digging up the exact feeling you had when your life felt completely out of your control.</p><p>The audience doesn't look at you to see a beautiful mask. They come to see their own hidden vulnerabilities exposed on screen. If you protect yourself, if you refuse to make that deep internal transition, you're just a content executor reading lines off a page. Be an architect of human behavior. Let it break you a little bit.</p>"}
+            ],
+            bengali: [
+                { id: "b1", date: "June 30, 2026", title: "Rakta Karabi (Nandini's Proclamation)", meta: "Poetic Classic - 2 Mins", langClass: "bn-text", text: "<p>তোমরা শুধু মাটির তলা থেকে সোনা খুঁড়ে বের করতে জানো, কিন্তু এই যে আকাশের আলো, বাতাসের গান—এদের কোনো মূল্যই তোমাদের কাছে নেই! রাজা, তুমি নিজেকে ওই চার দেয়ালের অন্ধকারে বন্দী করে রেখেছো কেন? একবার বাইরে এসে দেখো, রক্তকরবীর দল কেমন লাল হয়ে ফুটে উঠেছে। তারা কোনো লোহার শিকল মানে না, কোনো হিসেবের খাতার ধার ধারে না।</p><p>তোমার এই যক্ষপুরী সোনা দিয়ে মোড়ানো হতে পারে, কিন্তু এখানে মানুষের মন মরে গেছে। প্রতিদিন সকাল থেকে রাত পর্যন্ত তোমরা শুধু সংখ্যা গুনছো, অথচ জীবনের যে সহজ আনন্দ, তাকে তোমরা প্রতিদিন শ্বাসরোধ করে হত্যা করছো। আমি কোনো সোনা চাই না রাজা, আমি চাই মানুষের মুক্তি, এই খাঁচা ভেঙে প্রকৃতির উন্মুক্ত আলোয় ফিরে যাওয়া।</p>" }
+            ],
+            auditions: [
+                { id: "a1", date: "July 2026 Feature", title: "Independent Feature Script", meta: "Creative Blueprint", langClass: "en-text", text: "<p>Look, the budget isn't the problem here. The problem is your perspective. You want to make a safe, clean commercial that doesn't offend anyone, but you're hiring an artist who works with deep, raw human psychology. If we don't push the boundaries of this script, it will just get lost in the endless noise of social feeds. We need high-impact realizations, or we shouldn't even turn the camera on.</p>" }
+            ],
+            voice: [
+                { id: "v1", date: "Daily Vachika Matrix", title: "Resonance Alignment Loop", meta: "Vocal Placement Matrix", langClass: "en-text", text: "<p>Focus breathing on the lower diaphragm. Keep the throat relaxed. Pronounce clearly: 'The rhythm of the cadence resonates deep within the structural chamber.' Shift focus to Bengali diction for clarity, matching resonance with traditional poetic scales. Keep the chest cavity open to prevent tension during sharp emotional transitions.</p>" }
+            ]
         };
 
-        function handleOnboardingGateway(event) {
-            event.preventDefault();
-            
-            const credentialPayload = {
-                name: document.getElementById('gName').value.trim(),
-                phone: document.getElementById('gPhone').value.trim(),
-                email: document.getElementById('gEmail').value.trim(),
-                timestamp: new Date().toISOString()
+        // Persistent Memory Check on System Startup
+        window.onload = function() {
+            const savedProfile = localStorage.getItem('abhinetri_profile');
+            if (savedProfile) {
+                const profile = JSON.parse(savedProfile);
+                initializeDashboard(profile.name);
+                // Populate forms
+                document.getElementById('editName').value = profile.name;
+                document.getElementById('editPhone').value = profile.phone;
+                document.getElementById('editEmail').value = profile.email;
+            }
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const profile = {
+                name: document.getElementById('authName').value,
+                phone: document.getElementById('authPhone').value,
+                email: document.getElementById('authEmail').value
             };
-
-            // 1. COMMITTING LOGGING PARSE (This is where data feeds into your master matrix)
-            localStorage.setItem('abhinetri_identity', JSON.stringify(credentialPayload));
-            
-            // [Developer Note]: When you scale this out into Firebase in step 2, 
-            // this is the exact line that sends data automatically into your tracking screen:
-            // database.ref('backstage_users/').push(credentialPayload);
-
-            alert(`Backstage access logged for: ${credentialPayload.name}`);
-            initializePlatformRuntime(credentialPayload.name);
+            localStorage.setItem('abhinetri_profile', JSON.stringify(profile));
+            initializeDashboard(profile.name);
         }
 
-        function initializePlatformRuntime(userName) {
+        function initializeDashboard(name) {
             document.getElementById('authGate').classList.add('hidden');
-            const dashboard = document.getElementById('mainDashboard');
-            dashboard.classList.remove('hidden');
-            dashboard.parentElement.className = "min-h-screen w-full flex items-start justify-center p-4 pt-12 md:pt-24";
-            document.getElementById('welcomeUser').innerText = `Backstage Artist: ${userName}`;
-            rotateScriptEngine();
+            const dash = document.getElementById('mainDashboard');
+            dash.classList.remove('hidden');
+            document.getElementById('welcomeUser').innerText = name;
+            renderAllSegments();
         }
 
-        function rotateScriptEngine() {
-            const index = Math.floor(Math.random() * scriptRepository.length);
-            document.getElementById('scriptTitle').innerText = scriptRepository[index].title;
-            document.getElementById('scriptContent').innerText = scriptRepository[index].text;
+        function toggleProfileEdit() {
+            const editor = document.getElementById('profileEditor');
+            editor.classList.toggle('hidden');
+            if(!editor.classList.contains('hidden')) {
+                const profile = JSON.parse(localStorage.getItem('abhinetri_profile') || '{}');
+                document.getElementById('editName').value = profile.name || '';
+                document.getElementById('editPhone').value = profile.phone || '';
+                document.getElementById('editEmail').value = profile.email || '';
+            }
         }
 
-        function commitLocalKeySecurely() {
-            const content = document.getElementById('localScriptSpace').value;
-            if(!content) return alert("Workspace container is currently empty.");
+        function saveProfileChanges() {
+            const updatedProfile = {
+                name: document.getElementById('editName').value,
+                phone: document.getElementById('editPhone').value,
+                email: document.getElementById('editEmail').value
+            };
+            localStorage.setItem('abhinetri_profile', JSON.stringify(updatedProfile));
+            document.getElementById('welcomeUser').innerText = updatedProfile.name;
+            toggleProfileEdit();
+            alert('Core system registry updated successfully.');
+        }
+
+        function renderAllSegments() {
+            for (let segment in dataPipeline) {
+                const container = document.getElementById(`tab-${segment}`);
+                if (!container) continue;
+                container.innerHTML = dataPipeline[segment].map(item => `
+                    <div onclick="openModal('${segment}', '${item.id}')" class="bg-[#1e222b] border border-[#2e3440] p-5 rounded-xl cursor-pointer hover:border-gray-500 transition shadow-sm space-y-3">
+                        <div class="flex justify-between items-center text-xs text-gray-400 font-mono">
+                            <span class="bg-[#121417] px-2 py-0.5 rounded text-gray-400 font-bold">${item.meta}</span>
+                            <span>${item.date}</span>
+                        </div>
+                        <h3 class="text-md font-bold text-gray-200 tracking-tight">${item.title}</h3>
+                        <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed">${item.text.replace(/<[^>]*>/g, '')}</p>
+                        <div class="text-[11px] text-gray-500 font-semibold pt-1 flex items-center tracking-wide">
+                            Tap to expand into full screen view &rarr;
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(`tab-${tabId}`).classList.add('active');
             
-            // Client-Side Local Isolation Guard (Scrambled string encoding)
-            const encryptedToken = btoa(unescape(encodeURIComponent(content)));
-            localStorage.setItem('isolated_workspace_block', encryptedToken);
-            alert("Workspace state saved securely. Key locked to this client sandbox.");
+            document.querySelectorAll('nav button').forEach(el => {
+                el.classList.remove('text-gray-200', 'border-gray-400', 'active');
+                el.classList.add('text-gray-400', 'border-transparent');
+            });
+            
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.classList.remove('text-gray-400', 'border-transparent');
+            activeBtn.classList.add('text-gray-200', 'border-gray-400', 'active');
+        }
+
+        function openModal(segment, id) {
+            const item = dataPipeline[segment].find(x => x.id === id);
+            if (!item) return;
+            
+            const body = document.getElementById('modalBody');
+            body.className = `text-gray-300 font-normal leading-relaxed space-y-6 tracking-wide ${item.langClass}`;
+            body.style.fontSize = `${currentSize}px`;
+            
+            document.getElementById('modalTitle').innerText = item.title;
+            document.getElementById('modalMeta').innerText = `${item.date} • ${item.meta}`;
+            body.innerHTML = item.text;
+            
+            document.getElementById('monologueModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('monologueModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function adjustFontSize(modifier) {
+            currentSize = Math.max(14, Math.min(32, currentSize + modifier));
+            document.getElementById('modalBody').style.fontSize = `${currentSize}px`;
+        }
+
+        function changeStyle(style) {
+            const modal = document.getElementById('monologueModal');
+            const btnSans = document.getElementById('f-sans');
+            const btnSerif = document.getElementById('f-serif');
+            
+            if(style === 'sans') {
+                modal.classList.remove('font-style-serif');
+                modal.classList.add('font-style-sans');
+                btnSans.className = "bg-gray-700 text-gray-100 px-2.5 py-1 rounded font-semibold transition";
+                btnSerif.className = "hover:bg-gray-800 px-2.5 py-1 rounded transition text-gray-400";
+            } else {
+                modal.classList.remove('font-style-sans');
+                modal.classList.add('font-style-serif');
+                btnSerif.className = "bg-gray-700 text-gray-100 px-2.5 py-1 rounded font-semibold transition";
+                btnSans.className = "hover:bg-gray-800 px-2.5 py-1 rounded transition text-gray-400";
+            }
+        }
+
+        // Simulated AI Strategic Analytics Feedback Engine
+        function runAIEngine() {
+            const method = document.getElementById('aiMethod').value;
+            const textInput = document.getElementById('aiInput').value;
+            if(!textInput.trim()) { alert('Please insert a script sequence to analyze.'); return; }
+
+            const outputBox = document.getElementById('aiOutputBox');
+            const textContainer = document.getElementById('aiResponseText');
+            
+            outputBox.classList.remove('hidden');
+            textContainer.innerHTML = `<p class="text-gray-500 animate-pulse font-mono text-xs">Analyzing structural beats and processing target feedback directives...</p>`;
+
+            setTimeout(() => {
+                let strategyFeedback = '';
+                if(method === "Stanislavski") {
+                    strategyFeedback = `<p><strong>Psychological Subtext Architecture:</strong> Your text presents a stark tension between outer control and internal chaotic memory. Under Stanislavski’s guidelines, focus intently on your character's 'Given Circumstances'—the physical fluid restriction in the chest must dictate tempo-rhythm.</p><p><strong>Tactical Transition:</strong> Do not deliver the lines dramatically; find the internal action. The super-objective here is structural stabilization against emotional ruin. Break the broad paragraphs down into isolated psychological units.</p>`;
+                } else if(method === "Indian Method") {
+                    strategyFeedback = `<p><strong>Vachika & Aangika Alignment:</strong> Using the framework championed by Prasanna, this performance hinges on physical rootedness. The breath must drop directly into your naval base (Nabhipradesha). The Bengali articulation models require sharp structural resonance changes.</p><p><strong>Physical Transition:</strong> The transition between silent internal desperation and structural spoken alignment must be marked by spinal grounding. Ensure emotional subtext matches your outward posture to prevent performative superficiality.</p>`;
+                } else {
+                    strategyFeedback = `<p><strong>Psychological Gesture:</strong> Chekhov’s system requires you to find an explicit physical movement that sums up the internal dynamic of this monologue. Visualize a physical gesture of squeezing chaos closed or pulling back collapsing boundaries before executing the sequence.</p><p><strong>Resonance Core:</strong> Project the voice from the center of the chest frame, ensuring a rich, deep space for the dark-mode text palette to achieve maximum dramatic weight.</p>`;
+                }
+                textContainer.innerHTML = strategyFeedback;
+            }, 1200);
         }
     </script>
 </body>
