@@ -2,637 +2,327 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Abhinetri Core Studio Pro</title>
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#090c15">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLAYACT // CRAFT ENGINE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-main: #060608;
+            --bg-card: #0e0e12;
+            --border-color: #17171f;
+            --accent-glow: #e50914; /* PlayAct Crimson */
+            --text-heading: #ffffff;
+            --text-body: #a1a1aa;
+        }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-body);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow-x: hidden;
+        }
+        .f-branding {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            letter-spacing: 0.1em;
+        }
+        .modal-blur {
+            backdrop-filter: blur(20px);
+            background-color: rgba(6, 6, 8, 0.95);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #27273a;
+            border-radius: 2px;
+        }
+    </style>
     <script>
-        const manifestConfiguration = {
-            "name": "Abhinetri Core Studio Pro",
-            "short_name": "Abhinetri",
+        // Smooth standalone configurations without prompt banners
+        const manifest = {
+            "name": "PLAYACT STUDIO",
+            "short_name": "PlayAct",
             "start_url": ".",
             "display": "standalone",
-            "background_color": "#090c15",
-            "theme_color": "#090c15",
-            "orientation": "portrait",
-            "icons": [
-                {
-                    "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23090C15'/><path d='M30 35c0-10 8-15 20-15s20 5 20 15v5H30v-5zm-5 15h50v5c0 15-10 25-25 25S25 65 25 55v-5z' fill='%23991B1B'/><circle cx='42' cy='45' r='3' fill='%23FFF'/><circle cx='58' cy='45' r='3' fill='%23FFF'/></svg>",
-                    "sizes": "192x192",
-                    "type": "image/svg+xml",
-                    "purpose": "any maskable"
-                },
-                {
-                    "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23090C15'/><path d='M30 35c0-10 8-15 20-15s20 5 20 15v5H30v-5zm-5 15h50v5c0 15-10 25-25 25S25 65 25 55v-5z' fill='%23991B1B'/><circle cx='42' cy='45' r='3' fill='%23FFF'/><circle cx='58' cy='45' r='3' fill='%23FFF'/></svg>",
-                    "sizes": "512x512",
-                    "type": "image/svg+xml",
-                    "purpose": "any maskable"
-                }
-            ]
+            "background_color": "#060608",
+            "theme_color": "#e50914"
         };
-        const blobString = new Blob([JSON.stringify(manifestConfiguration)], {type: 'application/json'});
-        const manifestLinkNode = document.createElement('link');
-        manifestLinkNode.rel = 'manifest';
-        manifestLinkNode.href = URL.createObjectURL(blobString);
-        document.head.appendChild(manifestLinkNode);
+        const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(blob);
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = manifestURL;
+        document.head.appendChild(link);
     </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght=600;800&family=Hind+Siliguri:wght=400;600;700&family=Inter:wght=300;400;600;700&family=Noto+Serif+Bengali:wght=400;700&family=Playfair+Display:ital,wght=0,600;1,400&family=Martel:wght=600;700&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    
-    <style>
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        .f-en-inter { font-family: 'Inter', sans-serif; }
-        .f-en-serif { font-family: 'Playfair Display', serif; }
-        .f-en-cinzel { font-family: 'Cinzel', serif; }
-        .f-bn-noto { font-family: 'Noto Serif Bengali', serif; }
-        .f-bn-hind { font-family: 'Hind Siliguri', sans-serif; }
-        .f-hi-martel { font-family: 'Martel', serif; }
-
-        /* Dynamic Environment Custom Profiles - Implemented Rich Maroon & Dark Bluish Black */
-        .theme-dark { 
-            --bg-main: #090c15; 
-            --card-bg: #0f1322; 
-            --border-color: #2a1015; 
-            --text-main: #f1f5f9; 
-            --accent: #991b1b; 
-            --nav-bg: #05070d; 
-        }
-        .theme-morning { 
-            --bg-main: #f4f7fa; 
-            --card-bg: #ffffff; 
-            --border-color: #cbd5e1; 
-            --text-main: #0f172a; 
-            --accent: #1d4ed8; 
-            --nav-bg: #e2e8f0; 
-        }
-
-        body { background-color: var(--bg-main); color: var(--text-main); font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; }
-        .app-card { background-color: var(--card-bg); border: 1px solid var(--border-color); }
-        .app-nav { background-color: var(--nav-bg); border-right: 1px solid var(--border-color); }
-        
-        .curtain-panel { transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1); }
-        .open-left { transform: translateX(-100%); }
-        .open-right { transform: translateX(100%); }
-        .clap-top { transform-origin: bottom left; transition: transform 0.35s ease-out; }
-        .clapped { transform: rotate(-24deg); }
-        
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
-    </style>
 </head>
-<body class="theme-dark select-none relative min-h-screen flex">
+<body class="h-screen w-screen flex flex-col justify-between overflow-hidden relative">
 
-    <div id="brightnessFilter" class="fixed inset-0 pointer-events-none z-50 bg-black/0 transition-all duration-200"></div>
-
-    <div id="introCurtain" class="hidden fixed inset-0 z-50 flex overflow-hidden pointer-events-none">
-        <div id="curtainLeft" class="w-1/2 h-full bg-[#4c0519] border-r border-black/60 shadow-2xl curtain-panel"></div>
-        <div id="curtainRight" class="w-1/2 h-full bg-[#4c0519] border-l border-black/60 shadow-2xl curtain-panel"></div>
-    </div>
-
-    <div id="introClapboard" class="hidden fixed inset-0 z-50 bg-[#05070d] flex flex-col items-center justify-center transition-opacity duration-500">
-        <div class="w-72 space-y-2">
-            <div id="clapTop" class="w-full h-10 bg-zinc-900 border-b-4 border-black flex items-center justify-between px-4 text-white font-mono font-bold text-xs tracking-widest clap-top">
-                <span>///</span><span>ABHINETRI ENGINE</span><span>///</span>
+    <header class="h-20 border-b border-[var(--border-color)] px-8 flex items-center justify-between">
+        <div class="flex items-center gap-3 group cursor-pointer">
+            <div class="w-10 h-10 border border-zinc-800 rounded-lg flex items-center justify-center relative overflow-hidden transition-all duration-300 group-hover:border-[var(--accent-glow)]">
+                <div class="absolute inset-0 bg-[var(--accent-glow)] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                <i class="fa-solid fa-clapperboard text-sm text-zinc-400 group-hover:text-[var(--accent-glow)] transition-colors"></i>
             </div>
-            <div class="w-full h-28 bg-zinc-800 border-4 border-zinc-900 rounded-b-xl p-4 flex flex-col justify-between font-mono text-[9px] text-zinc-400">
-                <div class="flex justify-between border-b border-zinc-700 pb-2">
-                    <div><span class="text-white block">STAGE</span><span class="text-[#991b1b] text-xs font-bold">2026-X</span></div>
-                    <div><span class="text-white block">TAKE</span><span class="text-[#991b1b] text-xs font-bold" id="takeCounter">01</span></div>
-                </div>
-                <div class="text-right text-[8px] text-zinc-500">AUDIO ENGINE IN SYNC</div>
-            </div>
+            <span class="text-2xl font-black text-[var(--text-heading)] f-branding tracking-wider">PLAY<span class="text-[var(--accent-glow)]">ACT</span></span>
         </div>
-    </div>
-
-    <div id="authGate" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#05070d]">
-        <div class="bg-[#0f1322] border border-zinc-800/60 p-6 rounded-2xl w-full max-w-sm shadow-2xl space-y-4">
-            <div class="text-center">
-                <h1 class="text-xl font-bold text-[#991b1b] font-serif tracking-tight">ABHINETRI PLATFORM</h1>
-                <p class="text-[9px] text-zinc-500 font-mono tracking-widest uppercase mt-0.5">Professional Studio Hub</p>
-            </div>
-            <form onsubmit="verifyHardwareChannels(event)" class="space-y-3">
-                <input type="text" required id="authName" placeholder="ARTIST IDENTITY NAME" class="w-full bg-[#090c15] border border-zinc-800 rounded-xl px-3.5 py-3 text-xs focus:outline-none focus:border-[#991b1b] text-slate-100 font-medium">
-                <input type="tel" required id="authPhone" placeholder="SECURE TELEPHONY LINE" class="w-full bg-[#090c15] border border-zinc-800 rounded-xl px-3.5 py-3 text-xs focus:outline-none focus:border-[#991b1b] text-slate-100 font-medium">
-                <input type="email" required id="authEmail" placeholder="DATA COMMUNICATOR EMAIL" class="w-full bg-[#090c15] border border-zinc-800 rounded-xl px-3.5 py-3 text-xs focus:outline-none focus:border-[#991b1b] text-slate-100 font-medium">
-                
-                <div class="bg-black/30 border border-zinc-900 p-3 rounded-xl space-y-2 text-[10px] text-zinc-400 font-medium leading-relaxed">
-                    <label class="flex items-start space-x-2 cursor-pointer">
-                        <input type="checkbox" required class="mt-0.5 accent-[#991b1b]">
-                        <span>I accept terms of creative usage and mass production tracking parameters.</span>
-                    </label>
-                    <label class="flex items-start space-x-2 cursor-pointer">
-                        <input type="checkbox" required class="mt-0.5 accent-[#991b1b]">
-                        <span>Grant authorization to parse local microphone and camera node configurations.</span>
-                    </label>
-                </div>
-                <button type="submit" class="w-full bg-[#991b1b] hover:bg-[#881337] text-white font-bold py-3 rounded-xl text-xs tracking-wider font-mono">INITIALIZE HARDWARE</button>
-            </form>
+        <div class="text-[11px] uppercase tracking-widest font-mono text-zinc-600">
+            [ System Status: Grounded Rehearsal Flow ]
         </div>
-    </div>
+    </header>
 
-    <div id="mainDashboard" class="hidden flex-1 flex min-h-screen overflow-hidden">
-        <aside class="w-64 app-nav flex flex-col justify-between p-4 shrink-0 h-screen sticky top-0">
-            <div class="space-y-6">
+    <main class="flex-1 max-w-6xl w-full mx-auto px-8 py-6 flex flex-col justify-center space-y-10">
+        
+        <div class="text-center space-y-2 border-b border-zinc-900 pb-8">
+            <p class="text-sm tracking-widest font-mono text-[var(--accent-glow)] uppercase font-semibold">Quotation of the Day</p>
+            <h2 class="text-xl md:text-2xl font-serif text-zinc-200 italic font-medium max-w-3xl mx-auto">
+                "The actor must constantly lead themselves from the psychological cliché straight back into the visceral truth of the body."
+            </h2>
+            <p class="text-xs text-zinc-500 font-sans tracking-wide">— Indian Method Studio System // Prasanna</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            
+            <div onclick="openModal('vocalModal')" class="bg-[var(--bg-card)] border border-zinc-900 p-6 rounded-xl cursor-pointer transition-all duration-300 hover:border-zinc-700 hover:scale-[1.02] flex items-start gap-4 group">
+                <div class="p-3 rounded-lg bg-zinc-900/50 text-zinc-400 group-hover:text-sky-400 group-hover:bg-sky-950/10 transition-all">
+                    <i class="fa-solid fa-microphone-lines text-xl"></i>
+                </div>
                 <div>
-                    <h2 class="text-lg font-bold font-serif tracking-tight text-[#991b1b]">Abhinetri Core</h2>
-                    <p class="text-[9px] font-mono text-zinc-500 uppercase tracking-wider" id="welcomeUser"></p>
-                </div>
-                
-                <nav class="flex flex-col space-y-1 text-xs font-bold uppercase tracking-wider font-mono">
-                    <button onclick="switchWorkspaceTab('scripts')" id="btn-scripts" class="w-full text-left px-3 py-3 rounded-xl text-[#991b1b] bg-rose-950/20 active">● Monologue Vault</button>
-                    <button onclick="switchWorkspaceTab('vocal')" id="btn-vocal" class="w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200">○ Riyaz Matrix</button>
-                    <button onclick="switchWorkspaceTab('body')" id="btn-body" class="w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200">○ Body Language</button>
-                    <button onclick="switchWorkspaceTab('technicalities')" id="btn-technicalities" class="w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200">○ Technicalities</button>
-                    <button onclick="switchWorkspaceTab('poems')" id="btn-poems" class="w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200">○ Poems Corner</button>
-                    <button onclick="switchWorkspaceTab('literature')" id="btn-literature" class="w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200">○ Play Recommendations</button>
-                    <button onclick="switchWorkspaceTab('theatre')" id="btn-theatre" class="w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200">○ Live Theatre</button>
-                    <button onclick="switchWorkspaceTab('cinema')" id="btn-cinema" class="w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200">○ Cinema Analytics</button>
-                </nav>
-            </div>
-
-            <div class="space-y-3 pt-4 border-t border-zinc-900">
-                <div class="flex flex-col space-y-1.5 text-[9px] font-mono text-zinc-400">
-                    <button onclick="toggleAtmosphere('dark')" id="mDark" class="w-full text-left font-bold text-[#991b1b]">● STAGE DARK MODE</button>
-                    <button onclick="toggleAtmosphere('morning')" id="mMorn" class="w-full text-left font-bold hover:text-blue-500 transition">○ SPOTLIGHT MILK MODE</button>
-                </div>
-                <div class="space-y-1">
-                    <label class="text-[9px] font-mono text-zinc-500 block">STAGE DIMMER INTERNALS</label>
-                    <input type="range" id="brightnessSlider" min="0" max="65" value="0" class="w-full accent-[#991b1b] bg-zinc-800 h-1 rounded" oninput="adjustGlobalBrightness(this.value)">
-                </div>
-            </div>
-        </aside>
-
-        <main class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
-            <div class="app-card rounded-xl p-4 border-l-4 border-[#991b1b]">
-                <p id="dailyQuoteText" class="text-xs italic font-medium leading-relaxed text-zinc-300"></p>
-                <span id="dailyQuoteAuthor" class="text-[9px] font-mono font-bold block text-[#991b1b] mt-1 uppercase tracking-wider"></span>
-            </div>
-
-            <div id="tab-scripts" class="tab-content active space-y-4"></div>
-
-            <div id="tab-vocal" class="tab-content space-y-6">
-                <div class="app-card rounded-xl p-5 space-y-4">
-                    <div class="flex justify-between items-center"><h3 class="text-xs font-bold uppercase tracking-widest text-[#991b1b] font-mono">Volume Amplitude Scale Matrix</h3><span id="volDisplay" class="text-xs font-mono text-zinc-400">Target: 55dB (Projection Room)</span></div>
-                    <input type="range" min="10" max="100" value="55" class="w-full accent-[#991b1b] bg-zinc-800 h-1.5 rounded-lg" oninput="document.getElementById('volDisplay').innerText = `Target: ${this.value}dB (Room Range)`">
-                    <p class="text-xs text-zinc-400 leading-relaxed font-medium">Calibrate abdominal column air displacement vectors to hit target acoustic parameters safely across long theatrical runtime sessions.</p>
-                </div>
-                <div class="app-card rounded-xl p-5 space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-widest text-[#991b1b] font-mono">Vachika Fundamental Frequency Matrix</h3>
-                    <div class="grid grid-cols-5 gap-2" id="pitchContainer"></div>
-                </div>
-                <div class="app-card rounded-xl p-5 space-y-4">
-                    <div class="flex justify-between items-center"><h3 class="text-xs font-bold uppercase tracking-widest text-[#991b1b] font-mono">Metronome Timing Matrix</h3><span id="bpmDisplay" class="text-sm font-bold font-mono text-zinc-400">100 BPM</span></div>
-                    <input type="range" id="bpmSlider" min="45" max="200" value="100" class="w-full accent-[#991b1b] bg-zinc-800 rounded-lg h-1.5" oninput="updateBPM(this.value)">
-                    <button onclick="toggleMetronome()" id="metroBtn" class="w-full bg-zinc-900 border border-zinc-800 text-xs font-mono font-bold py-3 rounded-xl tracking-widest text-slate-200">START PACING SEQUENCE</button>
+                    <h3 class="text-sm font-bold text-white tracking-wide mb-1">Vocal Training Core</h3>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Manage respiration metrics, structural resonances, and premium AI voice engine profiles.</p>
                 </div>
             </div>
 
-            <div id="tab-body" class="tab-content space-y-6">
-                <section class="space-y-3">
-                    <h3 class="text-sm font-bold font-serif border-b border-zinc-900 pb-2 text-[#991b1b]">Postural Structural Asanas</h3>
-                    <div class="grid md:grid-cols-2 gap-4" id="yogaContainer"></div>
-                </section>
-                <section class="space-y-3">
-                    <h3 class="text-sm font-bold font-serif border-b border-zinc-900 pb-2 text-[#991b1b]">Mime Spatial Mechanics</h3>
-                    <div class="grid md:grid-cols-2 gap-4" id="mimeContainer"></div>
-                </section>
-                <section class="space-y-3">
-                    <h3 class="text-sm font-bold font-serif border-b border-zinc-900 pb-2 text-[#991b1b]">Facial & Rasa Micro-Expression Drills</h3>
-                    <div class="grid md:grid-cols-2 gap-4" id="facialContainer"></div>
-                </section>
-            </div>
-
-            <div id="tab-technicalities" class="tab-content space-y-4">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="app-card p-5 rounded-xl space-y-2">
-                        <span class="text-[#991b1b] font-mono text-[9px] font-bold block">INDIAN METHOD LOGIC (PRASANNA SYSTEM)</span>
-                        <h4 class="text-xs font-bold">Natya Shastra Body Grounding Blocks</h4>
-                        <p class="text-xs text-zinc-400 leading-relaxed font-medium">Rooting weight delivery vectors straight into your feet ensures full integration between body and emotion. Never try to force an emotional state artificially; focus entirely on the physical interactions occurring within your immediate spatial environment.</p>
-                    </div>
-                    <div class="app-card p-5 rounded-xl space-y-2">
-                        <span class="text-blue-500 font-mono text-[9px] font-bold block">WESTERN ARCHITECTURE (STANISLAVSKI METHOD)</span>
-                        <h4 class="text-xs font-bold">The Magic 'If' Realization Mechanics</h4>
-                        <p class="text-xs text-zinc-400 leading-relaxed font-medium">By placing your consciousness within the dynamic 'given circumstances' of a scene, you naturally align your psychological transitions. This path yields clean, authentic responses instead of artificial presentation styles.</p>
-                    </div>
+            <div onclick="openModal('monologueModal')" class="bg-[var(--bg-card)] border border-zinc-900 p-6 rounded-xl cursor-pointer transition-all duration-300 hover:border-zinc-700 hover:scale-[1.02] flex items-start gap-4 group">
+                <div class="p-3 rounded-lg bg-zinc-900/50 text-zinc-400 group-hover:text-emerald-400 group-hover:bg-emerald-950/10 transition-all">
+                    <i class="fa-solid fa-file-invoice text-xl"></i>
                 </div>
-            </div>
-
-            <div id="tab-poems" class="tab-content space-y-4"></div>
-            <div id="tab-literature" class="tab-content grid md:grid-cols-2 gap-4"></div>
-            <div id="tab-theatre" class="tab-content grid md:grid-cols-2 gap-4" id="theatreContainer"></div>
-            <div id="tab-cinema" class="tab-content grid md:grid-cols-2 gap-4" id="cinemaContainer"></div>
-        </main>
-    </div>
-
-    <div id="monologueModal" class="hidden fixed inset-0 bg-[#05070d] z-50 p-6 flex flex-col justify-between transition-all">
-        <div class="max-w-3xl mx-auto w-full">
-            <div class="flex justify-between items-start border-b border-zinc-900/60 pb-3">
                 <div>
-                    <span id="modalMeta" class="text-[8px] font-mono text-[#991b1b] uppercase tracking-widest font-bold"></span>
-                    <h2 id="modalTitle" class="text-md font-bold font-serif tracking-tight mt-0.5"></h2>
+                    <h3 class="text-sm font-bold text-white tracking-wide mb-1">Monologue Vault</h3>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Isolate active scene materials, prompt alignments, and line-by-line pacing logs.</p>
                 </div>
-                <button onclick="closeModal()" class="text-zinc-500 text-2xl p-1 leading-none hover:text-[#991b1b] transition">&times;</button>
+            </div>
+
+            <div onclick="openModal('poetryModal')" class="bg-[var(--bg-card)] border border-zinc-900 p-6 rounded-xl cursor-pointer transition-all duration-300 hover:border-zinc-700 hover:scale-[1.02] flex items-start gap-4 group">
+                <div class="p-3 rounded-lg bg-zinc-900/50 text-zinc-400 group-hover:text-purple-400 group-hover:bg-purple-950/10 transition-all">
+                    <i class="fa-solid fa-feather-pointed text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-white tracking-wide mb-1">Poetry & Verse Lab</h3>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Refine rhythmic diction, structural cadence, and vocal timing across Rabindranath profiles.</p>
+                </div>
+            </div>
+
+            <div onclick="openModal('theaterModal')" class="bg-[var(--bg-card)] border border-zinc-900 p-6 rounded-xl cursor-pointer transition-all duration-300 hover:border-zinc-700 hover:scale-[1.02] flex items-start gap-4 group">
+                <div class="p-3 rounded-lg bg-zinc-900/50 text-zinc-400 group-hover:text-amber-400 group-hover:bg-amber-950/10 transition-all">
+                    <i class="fa-solid fa-masks-theater text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-white tracking-wide mb-1">Theatre Production Hub</h3>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Organize stage configurations, blocking parameters, and classical tech matrices.</p>
+                </div>
+            </div>
+
+            <div onclick="openModal('cinemaModal')" class="bg-[var(--bg-card)] border border-zinc-900 p-6 rounded-xl cursor-pointer transition-all duration-300 hover:border-zinc-700 hover:scale-[1.02] flex items-start gap-4 group">
+                <div class="p-3 rounded-lg bg-zinc-900/50 text-zinc-400 group-hover:text-rose-400 group-hover:bg-rose-950/10 transition-all">
+                    <i class="fa-solid fa-film text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-white tracking-wide mb-1">Cinematic Vault</h3>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Access curated psychological analyses of elite, award-nominated global cinema tracks.</p>
+                </div>
+            </div>
+
+            <div onclick="openModal('feedbackModal')" class="bg-[var(--bg-card)] border border-zinc-900 p-6 rounded-xl cursor-pointer transition-all duration-300 hover:border-zinc-700 hover:scale-[1.02] flex items-start gap-4 group">
+                <div class="p-3 rounded-lg bg-zinc-900/50 text-zinc-400 group-hover:text-[var(--accent-glow)] group-hover:bg-red-950/10 transition-all">
+                    <i class="fa-solid fa-chart-line text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-white tracking-wide mb-1">AI Feedback Corner</h3>
+                    <p class="text-xs text-zinc-500 leading-relaxed">Review real-time performance critique, voice diagnostics, and behavioral scoring tracks.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="h-14 border-t border-[var(--border-color)] text-[10px] text-zinc-600 tracking-widest text-center flex items-center justify-center font-mono">
+        PLAYACT STUDIO FRAMEWORK © 2026 // ALL METRICS OPERATIONAL
+    </footer>
+
+    <div id="vocalModal" class="hidden fixed inset-0 z-50 modal-blur items-center justify-center p-4">
+        <div class="bg-[var(--bg-card)] border border-zinc-800 rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal('vocalModal')" class="absolute top-4 right-4 text-zinc-500 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fa-solid fa-microphone-lines text-sky-400 text-xl"></i>
+                <h2 class="text-lg font-bold text-white">Vocal Training & AI Voice Grid</h2>
             </div>
             
-            <div id="contextFrameworkBox" class="bg-zinc-950/60 border border-zinc-900 p-3 rounded-lg my-3 text-[10px] text-zinc-400 space-y-1">
-                <p><strong>CONTEXT ARCHITECTURE:</strong> <span id="contextPlay" class="text-zinc-200 font-medium"></span></p>
-                <p><strong>STRATEGY OBJECTIVE:</strong> <span id="contextObjective" class="text-zinc-200 font-medium"></span></p>
-                <p><strong>BACKGROUND CONFIGURATION:</strong> <span id="contextCharacter" class="text-zinc-200 font-medium"></span></p>
-            </div>
-
-            <div class="bg-zinc-950/40 border border-zinc-900 rounded-xl p-3 space-y-2 text-xs">
-                <div class="flex flex-wrap gap-1" id="fontStylesContainer"></div>
-                <div class="flex items-center justify-between pt-2 border-t border-zinc-900/60">
-                    <span class="text-[8px] font-mono text-zinc-500 uppercase font-bold tracking-wider">Dynamic Typographic Scale Modifier</span>
-                    <div class="flex items-center space-x-2">
-                        <button onclick="adjustFontSize(-2)" class="bg-zinc-900 text-slate-200 px-2.5 py-1 rounded-lg text-xs font-bold">-A</button>
-                        <span id="fontSizeDisplay" class="font-mono text-[10px] text-[#991b1b]">22px</span>
-                        <button onclick="adjustFontSize(2)" class="bg-zinc-900 text-slate-200 px-2.5 py-1 rounded-lg text-xs font-bold">+A</button>
+            <div class="space-y-6">
+                <div>
+                    <label class="text-[10px] uppercase font-mono tracking-wider text-zinc-500 block mb-3">AI Vocal Profile Selection (8 Discrete Tones)</label>
+                    
+                    <div class="mb-4">
+                        <span class="text-[11px] font-bold text-zinc-400 block mb-2"><i class="fa-solid fa-mars mr-1 text-sky-400"></i> Male Engine Options</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button class="p-2.5 text-left text-xs bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 text-white font-medium">1. The Director (Authoritative)</button>
+                            <button class="p-2.5 text-left text-xs bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 text-zinc-400">2. The Classical (Resonant)</button>
+                            <button class="p-2.5 text-left text-xs bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 text-zinc-400">3. Contemporary (Conversational)</button>
+                            <button class="p-2.5 text-left text-xs bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 text-zinc-400">4. The Adversary (High-Stakes)</button>
+                        </div>
                     </div>
+
+                    <div>
+                        <span class="text-[11px] font-bold text-zinc-400 block mb-2"><i class="fa-solid fa-venus mr-1 text-pink-400"></i> Female Engine Options</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button class="p-2.5 text-left text-xs bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 text-zinc-400">1. The Co-Star (Empathetic)</button>
+                            <button class="p-2.5 text-left text-xs bg-rose-950/20 border border-rose-900 text-rose-400 rounded ring-1 ring-rose-500/30 font-bold shadow-md shadow-rose-950/50">2. The Sensual (Low-Register/Breathy) ★</button>
+                            <button class="p-2.5 text-left text-xs bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 text-zinc-400">3. The Critic (Articulate)</button>
+                            <button class="p-2.5 text-left text-xs bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 text-zinc-400">4. The Abstract (Unpredictable)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[var(--bg-main)] border border-[var(--border-color)] p-4 rounded-xl text-xs space-y-2">
+                    <div class="flex justify-between"><span class="text-zinc-500">Acoustic Alignment:</span> <span class="text-zinc-300 font-mono">Resonance & Diction Mode</span></div>
+                    <div class="flex justify-between"><span class="text-zinc-500">Voice Feed Status:</span> <span class="text-emerald-400 font-mono">Engine Engaged</span></div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="max-w-3xl mx-auto w-full flex-1 overflow-y-auto py-2 my-2 custom-scrollbar">
-            <div id="modalBody" class="space-y-6" style="font-size: 22px;"></div>
+    <div id="monologueModal" class="hidden fixed inset-0 z-50 modal-blur items-center justify-center p-4">
+        <div class="bg-[var(--bg-card)] border border-zinc-800 rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal('monologueModal')" class="absolute top-4 right-4 text-zinc-500 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fa-solid fa-file-invoice text-emerald-400 text-xl"></i>
+                <h2 class="text-lg font-bold text-white">Monologue & Scene Partner Vault</h2>
+            </div>
+            <div class="space-y-4">
+                <div class="h-44 bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-4 overflow-y-auto custom-scrollbar font-serif text-base text-zinc-300 leading-relaxed space-y-4">
+                    <p class="font-sans text-[10px] font-bold text-zinc-500 uppercase tracking-widest border-b border-zinc-900 pb-1">[ Scene Workspace: Active Script ]</p>
+                    <p><strong>YOU:</strong> To be, or not to be, that is the question. Whether 'tis nobler in the mind to suffer the slings and arrows of outrageous fortune, or to take arms against a sea of troubles...</p>
+                    <p class="text-rose-400 bg-rose-950/15 border border-rose-900/40 p-3 rounded-lg text-sm italic">
+                        <strong>AI PARTNER (Sensual Tone):</strong> "And by opposing end them? Soft you now... The fair Ophelia!"
+                    </p>
+                </div>
+                <div class="flex gap-3">
+                    <button class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs tracking-wider uppercase transition">Engage Live Scene Partner</button>
+                    <button class="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-medium rounded-lg text-xs transition">Upload Script Page</button>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="max-w-3xl mx-auto w-full pt-3 border-t border-zinc-900/60 flex space-x-2">
-            <button onclick="closeModal()" class="flex-1 bg-[#991b1b] text-white font-mono text-[10px] font-bold py-3.5 rounded-xl uppercase tracking-widest shadow-xl">Complete Reading Pass</button>
+    <div id="poetryModal" class="hidden fixed inset-0 z-50 modal-blur items-center justify-center p-4">
+        <div class="bg-[var(--bg-card)] border border-zinc-800 rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal('poetryModal')" class="absolute top-4 right-4 text-zinc-500 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fa-solid fa-feather-pointed text-purple-400 text-xl"></i>
+                <h2 class="text-lg font-bold text-white">Poetry & Verse Cadence Lab</h2>
+            </div>
+            <p class="text-xs text-zinc-400 mb-4">Engineered to isolate rhythmic meter breakdowns and diction resonance practice via selected verses.</p>
+            <div class="bg-[var(--bg-main)] p-6 rounded-xl border border-zinc-800 text-center font-serif text-zinc-200 italic text-base leading-loose mb-4">
+                "Where the mind is without fear and the head is held high;<br>Where knowledge is free..."
+            </div>
+            <button class="w-full py-2.5 bg-purple-950/40 border border-purple-900 hover:bg-purple-900/40 text-purple-300 text-xs font-semibold rounded-lg transition">Trigger Vocal Warm-up Track</button>
+        </div>
+    </div>
+
+    <div id="theaterModal" class="hidden fixed inset-0 z-50 modal-blur items-center justify-center p-4">
+        <div class="bg-[var(--bg-card)] border border-zinc-800 rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal('theaterModal')" class="absolute top-4 right-4 text-zinc-500 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fa-solid fa-masks-theater text-amber-400 text-xl"></i>
+                <h2 class="text-lg font-bold text-white">Theatre Production Hub</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="bg-zinc-900/40 p-4 border border-zinc-800 rounded-xl space-y-1.5">
+                    <span class="block font-bold text-zinc-300"><i class="fa-solid fa-compass mr-1 text-amber-500"></i> Indian Method Structural Space</span>
+                    <p class="text-zinc-500 leading-relaxed">Performance parameters mapped directly onto an uninhibited physical setting for raw emotional translation transitions.</p>
+                </div>
+                <div class="bg-zinc-900/40 p-4 border border-zinc-800 rounded-xl space-y-1.5">
+                    <span class="block font-bold text-zinc-300"><i class="fa-solid fa-vector-square mr-1 text-amber-500"></i> Fixed Coordinate Blocking</span>
+                    <p class="text-zinc-500 leading-relaxed">Black-box parameters and physical boundaries remain completely structured. Safe from rotational canvas layout issues.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cinemaModal" class="hidden fixed inset-0 z-50 modal-blur items-center justify-center p-4">
+        <div class="bg-[var(--bg-card)] border border-zinc-800 rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal('cinemaModal')" class="absolute top-4 right-4 text-zinc-500 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fa-solid fa-film text-rose-400 text-xl"></i>
+                <h2 class="text-lg font-bold text-white">Cinematic Realizations Vault</h2>
+            </div>
+            <div class="space-y-3 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+                <div class="p-3 border border-zinc-800 rounded-lg bg-[var(--bg-main)] flex justify-between items-center hover:border-zinc-700 transition">
+                    <div>
+                        <h4 class="text-xs font-bold text-white">The Salesman (Asghar Farhadi)</h4>
+                        <p class="text-[11px] text-zinc-500">Examines deep structural tension, internal psychological shifts, and hidden character subtext.</p>
+                    </div>
+                    <span class="text-[10px] bg-rose-950/40 border border-rose-900 text-rose-400 px-2 py-0.5 rounded font-mono">Oscar Nominee</span>
+                </div>
+                <div class="p-3 border border-zinc-800 rounded-lg bg-[var(--bg-main)] flex justify-between items-center hover:border-zinc-700 transition">
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Taste of Cherry (Abbas Kiarostami)</h4>
+                        <p class="text-[11px] text-zinc-500">Minimalist masterpiece uncovering immense realizations about human existence through steady silence.</p>
+                    </div>
+                    <span class="text-[10px] bg-zinc-900 border border-zinc-700 text-zinc-400 px-2 py-0.5 rounded font-mono">Palme d'Or</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="feedbackModal" class="hidden fixed inset-0 z-50 modal-blur items-center justify-center p-4">
+        <div class="bg-[var(--bg-card)] border border-zinc-800 rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal('feedbackModal')" class="absolute top-4 right-4 text-zinc-500 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fa-solid fa-chart-line text-[var(--accent-glow)] text-xl"></i>
+                <h2 class="text-lg font-bold text-white">AI Feedback Corner & Diagnostics</h2>
+            </div>
+            
+            <div class="space-y-3 text-xs">
+                <div class="p-4 bg-[var(--bg-main)] border border-zinc-800 rounded-xl">
+                    <div class="flex justify-between font-bold text-zinc-300 mb-1"><span>Diction Clarity & Resonance</span> <span class="text-emerald-400 font-mono">92%</span></div>
+                    <p class="text-[11px] text-zinc-500 leading-relaxed">Resonance delivery tracks stably. Breath control through multi-tiered verse elements remains highly controlled.</p>
+                </div>
+                <div class="p-4 bg-[var(--bg-main)] border border-zinc-800 rounded-xl">
+                    <div class="flex justify-between font-bold text-zinc-300 mb-1"><span>Psychological Transitions</span> <span class="text-amber-400 font-mono">84%</span></div>
+                    <p class="text-[11px] text-zinc-500 leading-relaxed">Internal emotional shifts are tracked with clean structural timing. Cliché delivery risks are fully mitigated.</p>
+                </div>
+                
+                <div class="pt-2">
+                    <button class="w-full py-3 bg-[var(--accent-glow)] hover:bg-red-700 text-white font-bold tracking-wider uppercase rounded-xl transition shadow-lg shadow-red-950/40">
+                        <i class="fa-solid fa-circle-play mr-1.5"></i> Run Realtime Analysis Sequence
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        const BACKEND_TELEMETRY_API = "https://formspree.io/f/xknwpyrz";
-
-        let currentSize = 22;
-        let isMetroPlaying = false;
-        let metroInterval = null;
-        let currentTabId = "scripts";
-        let tabEntryTimestamp = Date.now();
-        let watchTimeDataStore = { scripts: 0, vocal: 0, body: 0, technicalities: 0, poems: 0, literature: 0, theatre: 0, cinema: 0 };
-
-        const continuousQuotes = [
-            { quote: "Never separate your technical vocal or physical apparatus from the character's internal driving objective.", author: "Constantin Stanislavski" },
-            { quote: "Your characterisation is entirely empty unless your physical mass is anchored into real stage space interaction.", author: "Prasanna (Indian Method)" }
-        ];
-
-        const fontsMatrix = [
-            { name: 'Inter Clean', className: 'f-en-inter', type: 'en' },
-            { name: 'Playfair Pro', className: 'f-en-serif', type: 'en' },
-            { name: 'Cinzel Master', className: 'f-en-cinzel', type: 'en' },
-            { name: 'Noto Bengali', className: 'f-bn-noto', type: 'bn' },
-            { name: 'Hind Functional', className: 'f-bn-hind', type: 'bn' },
-            { name: 'Martel Hindi', className: 'f-hi-martel', type: 'hi' }
-        ];
-
-        const scriptsDatabase = [
-            {
-                id: "sc1", title: "Carmy's Grief Stabilization Sequence", meta: "Dramatic Text • English • Est: 2.5 Mins", type: "en",
-                play: "The Bear (FX Television Build)", objective: "To stabilize psychological ruin through meticulous structural kitchen rules.",
-                character: "Carmen Berzatto - Fragmented, precision-obsessed, highly suppressed grief.",
-                text: "<p>I didn't want to go to culinary school, but my brother died and I realized I had to build something great because otherwise his quiet ending meant nothing. It meant we were both nothing. Everyday I wake up and I feel like there's this heavy fluid in my chest pushing against my ribs, demanding that I turn something raw and broken into something precise, clean, flawless.</p><p>You think I care about a Michelin star? I care about control. Because out there in the regular world, people disappear. Conversations fall apart. You can love someone with everything inside you and they still blow their brains out in the middle of a Tuesday afternoon. But inside a kitchen, rules are absolute. If you season a stock correctly, it rewards you with depth. It doesn't lie to you.</p>"
-            },
-            {
-                id: "sc2", title: "Nandini's Sovereign Proclamation", meta: "Poetic Classical • Bengali • Est: 2 Mins", type: "bn",
-                play: "Rakta Karabi (Tagore Framework)", objective: "To break down iron-clad technological tyranny using pure environmental resonance.",
-                character: "Nandini - Incarnation of natural grace, fierce structural resistance.",
-                text: "<p>তোমরা শুধু মাটির তলা থেকে সোনা খুঁড়ে বের করতে জানো, কিন্তু এই যে আকাশের আলো, বাতাসের গান—এদের কোনো মূল্যই তোমাদের কাছে নেই! রাজা, তুমি নিজেকে ওই চার দেয়ালের অন্ধকারে বন্দী করে রেখেছো কেন? একবার বাইরে এসে দেখো, রক্তকরবীর দল কেমন লাল হয়ে ফুটে উঠেছে।</p>"
-            }
-        ];
-
-        const poemsDatabase = [
-            {
-                id: "p1", title: "Sonnet 29: Structural Isolation Pass", writer: "William Shakespeare", type: "en",
-                play: "English Renaissance Sonnet Architecture", objective: "Iambic pentameter rhythmic processing and quick tone shifts.",
-                character: "Author Profile: Classic historical benchmark for metered emotional changes.",
-                text: "<p>When, in disgrace with fortune and men's eyes,<br>I all alone beweep my outcast state,<br>And trouble deaf heaven with my bootless cries,<br>And look upon myself and curse my fate...<br>Haply I think on thee, and then my state,<br>Like to the lark at break of day arising<br>From sullen earth, sings hymns at heaven's gate.</p><hr class='border-zinc-800 my-3'/><p class='text-xs text-zinc-500'><strong>Semantic Interpretation:</strong> Tracks the mental transition from absolute despair to transcendent clarity within 14 bars. Focus on the breath accentuation during the word 'Haply'.</p>"
-            },
-            {
-                id: "p2", title: "Where The Mind Is Without Fear (চিত্ত যেথা ভয়শূন্য)", writer: "Rabindranath Tagore", type: "bn",
-                play: "Gitanjali Structural Sequence", objective: "High-register projection development and clear chest voice resonance.",
-                character: "Author Profile: Celebrated Indian writer, master of aesthetic phrasing.",
-                text: "<p>চিত্ত যেথা ভয়শূন্য, উচ্চ যেথা শির,<br>জ্ঞান যেথা মুক্ত, যেথা গৃহের প্রাচীর<br>আপন প্রাঙ্গণতলে দিবসশর্বরী<br>বসুধারে রাখে নাই খণ্ড ক্ষুদ্র করি...<br>ভারতের সেই স্বর্গে করো জাগরিত।</p><hr class='border-zinc-800 my-3'/><p class='text-xs text-zinc-500'><strong>Semantic Interpretation:</strong> Demands strong vocal clarity. Every syllable should be articulated cleanly using proper abdominal muscle control.</p>"
-            },
-            {
-                id: "p3", title: "Madhushala (The Tavern Core)", writer: "Harivansh Rai Bachchan", type: "hi",
-                play: "Modern Hindi Chhayavaad Repository", objective: "Rhythmic breath pacing and dual phonetic layout matching.",
-                character: "Author Profile: Renowned Hindi poet focused on symbolic romantic lyricism.",
-                text: "<p class='f-hi-martel text-rose-800 text-lg'>मृदु भावों के अंगूरों की आज बना लाया हाला,</p><p class='italic text-zinc-500 text-xs mt-1'>(Mridu bhaavon ke angooron kee aaj bana laaya laaha)</p><p class='f-hi-martel text-rose-800 text-lg mt-4'>प्रियतम, अपने ही हाथों से आज पिलाऊंगा प्याला।</p><p class='italic text-zinc-500 text-xs mt-1'>(Priyatam, apne hee haathon se aaj pilaunga pyaala)</p><hr class='border-zinc-800 my-3'/><p class='text-xs text-zinc-500'><strong>Semantic Meaning:</strong> Benchmark tool for training classical micro-vocal inflections.</p>"
-            }
-        ];
-
-        const yogaData = [
-            { title: "Tadasana (Mountain Posture)", image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80", benefits: "Corrects skeletal balance and improves vertical stage alignment.", timeline: "Best Time: Morning hours (Completely empty stomach pipeline)", fluid: "Hydration Window: Keep a strict 20-minute buffer after consuming water." },
-            { title: "Bhujangasana (Cobra Extension)", image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80", benefits: "Opens up the thoracic column to support deep physical projection layout.", timeline: "Best Time: Sunrise or 4 hours following major food intake.", fluid: "Hydration Window: Avoid drinking fluids immediately beforehand." }
-        ];
-
-        const mimeData = [
-            { title: "The Spatial Invisible Wall", image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80", details: "Flatten palm vectors down fully onto an imagined geometric plane. Isolate shoulder movement to build a clean illusion of touch.", link: "https://www.youtube.com/results?search_query=mime+wall+technique+masterclass" },
-            { title: "Tug-of-War Vector Mechanics", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80", details: "Lock your center of gravity low to show physical resistance against a non-existent rope pulling back against you.", link: "https://www.youtube.com/results?search_query=mime+resistance+techniques" }
-        ];
-
-        const facialData = [
-            { title: "Shringara Rasa (Love/Aesthetic)", image: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=600&q=80", drill: "Relax the jaw completely, widen your focal point slightly, and lift the inner cheeks to project authentic warmth." },
-            { title: "Raudra Rasa (Fierce Anger)", image: "https://images.unsplash.com/photo-1542206395-9feb3edaa68d?auto=format&fit=crop&w=600&q=80", drill: "Lower the eyebrow ridge using your central muscle groups while keeping the gaze sharp and focused on a single point." }
-        ];
-
-        const literatureRecommendations = [
-            { type: "Play Portfolio", language: "English", title: "Hamlet", writer: "William Shakespeare", context: "Tragedy of the Prince of Denmark tracking existential decay and moral collapse. Excellent for studying subtext and layered intentions." },
-            { type: "Play Portfolio", language: "Bengali", title: "Ebong Indrajit", writer: "Badal Sircar", context: "Absurdist post-colonial masterpiece dealing with monotonous routine and urban societal conformity in middle-class youth." },
-            { type: "Short Story", language: "Hindi", title: "Idgah", writer: "Munshi Premchand", context: "A moving study of empathy, sacrifice, and deep emotional sensitivity captured beautifully through the eyes of a young child named Hamid." }
-        ];
-
-        window.onload = function() {
-            executeBootEngineClapCurtain();
-            checkUserRegistryState();
-            renderDynamicModules();
-            tabEntryTimestamp = Date.now();
-        }
-
-        function executeBootEngineClapCurtain() {
-            let instances = parseInt(localStorage.getItem('abhinetri_runs_v3') || '0');
-            instances += 1;
-            localStorage.setItem('abhinetri_runs_v3', instances.toString());
-
-            if (instances % 2 !== 0) {
-                const cL = document.getElementById('curtainLeft');
-                const cR = document.getElementById('curtainRight');
-                const intro = document.getElementById('introCurtain');
-                intro.classList.remove('hidden');
-                setTimeout(() => { cL.classList.add('open-left'); cR.classList.add('open-right'); }, 200);
-                setTimeout(() => { intro.classList.add('hidden'); }, 1100);
-            } else {
-                const intro = document.getElementById('introClapboard');
-                const top = document.getElementById('clapTop');
-                document.getElementById('takeCounter').innerText = "0" + ((instances % 8) + 1);
-                intro.classList.remove('hidden');
-                setTimeout(() => { top.classList.add('clapped'); }, 300);
-                setTimeout(() => { intro.classList.add('opacity-0'); }, 1100);
-                setTimeout(() => { intro.classList.add('hidden'); intro.classList.remove('opacity-0'); }, 1500);
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
             }
         }
 
-        function checkUserRegistryState() {
-            const saved = localStorage.getItem('abhinetri_core_profile');
-            if (saved) {
-                const data = JSON.parse(saved);
-                document.getElementById('authGate').classList.add('hidden');
-                document.getElementById('mainDashboard').classList.remove('hidden');
-                document.getElementById('welcomeUser').innerText = data.name.toUpperCase();
-                
-                const chosen = continuousQuotes[Math.floor(Math.random() * continuousQuotes.length)];
-                document.getElementById('dailyQuoteText').innerText = `"${chosen.quote}"`;
-                document.getElementById('dailyQuoteAuthor').innerText = `— ${chosen.author}`;
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
             }
         }
 
-        function verifyHardwareChannels(e) {
-            e.preventDefault();
-            navigator.mediaDevices?.getUserMedia({ audio: true, video: true })
-                .then(() => registerCoreProfile())
-                .catch(() => registerCoreProfile());
-        }
-
-        function registerCoreProfile() {
-            const data = {
-                name: document.getElementById('authName').value,
-                phone: document.getElementById('authPhone').value,
-                email: document.getElementById('authEmail').value,
-                registeredAt: new Date().toISOString()
-            };
-            localStorage.setItem('abhinetri_core_profile', JSON.stringify(data));
-            dispatchTelemetryPayload("USER_REGISTRATION", { profile: data });
-            checkUserRegistryState();
-        }
-
-        function syncTabWatchTimeMetrics() {
-            const elapsedSeconds = Math.round((Date.now() - tabEntryTimestamp) / 1000);
-            if (elapsedSeconds > 0 && watchTimeDataStore.hasOwnProperty(currentTabId)) {
-                watchTimeDataStore[currentTabId] += elapsedSeconds;
-                const profile = JSON.parse(localStorage.getItem('abhinetri_core_profile') || '{}');
-                dispatchTelemetryPayload("WATCH_TIME_UPDATE", {
-                    user: profile.email || "anonymous",
-                    name: profile.name || "unknown",
-                    activeSection: currentTabId,
-                    secondsSpentInSession: elapsedSeconds,
-                    totalCumulativeWatchTime: watchTimeDataStore
-                });
-            }
-            tabEntryTimestamp = Date.now();
-        }
-
-        function dispatchTelemetryPayload(eventType, payload) {
-            fetch(BACKEND_TELEMETRY_API, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ event: eventType, timestamp: new Date().toISOString(), data: payload })
-            }).catch(() => {});
-        }
-
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === "hidden") syncTabWatchTimeMetrics();
-        });
-
-        function toggleAtmosphere(mode) {
-            const b = document.body;
-            if (mode === 'dark') {
-                b.className = "theme-dark select-none relative min-h-screen flex";
-                document.getElementById('mDark').className = "text-[#991b1b] font-bold w-full text-left";
-                document.getElementById('mMorn').className = "hover:text-blue-500 font-bold text-zinc-500 w-full text-left";
-            } else {
-                b.className = "theme-morning select-none relative min-h-screen flex";
-                document.getElementById('mMorn').className = "text-blue-500 font-bold w-full text-left";
-                document.getElementById('mDark').className = "hover:text-[#991b1b] font-bold text-zinc-500 w-full text-left";
-            }
-        }
-
-        function adjustGlobalBrightness(val) {
-            document.getElementById('brightnessFilter').style.backgroundColor = `rgba(0, 0, 0, ${val / 100})`;
-        }
-
-        function switchWorkspaceTab(id) {
-            syncTabWatchTimeMetrics();
-            currentTabId = id;
-
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.getElementById(`tab-${id}`).classList.add('active');
-            document.querySelectorAll('aside nav button').forEach(btn => {
-                btn.className = "w-full text-left px-3 py-3 rounded-xl text-zinc-400 hover:text-slate-200";
-            });
-            const isDark = document.body.classList.contains('theme-dark');
-            document.getElementById(`btn-${id}`).className = `w-full text-left px-3 py-3 rounded-xl ${isDark ? 'text-[#991b1b] bg-rose-950/10' : 'text-blue-500 bg-blue-50'} font-bold active`;
-        }
-
-        function renderDynamicModules() {
-            document.getElementById('tab-scripts').innerHTML = scriptsDatabase.map(s => `
-                <div onclick="openModal('script', '${s.id}')" class="app-card p-5 rounded-xl cursor-pointer hover:border-[#991b1b] transition shadow-md space-y-2">
-                    <span class="bg-black/30 text-[#991b1b] border border-zinc-900 text-[9px] px-2.5 py-0.5 rounded font-mono font-bold uppercase tracking-wider">${s.meta}</span>
-                    <h3 class="text-sm font-bold font-serif text-slate-200">${s.title}</h3>
-                </div>
-            `).join('');
-
-            document.getElementById('yogaContainer').innerHTML = yogaData.map(y => `
-                <div class="app-card rounded-xl overflow-hidden shadow-md">
-                    <img src="${y.image}" class="w-full h-40 object-cover bg-zinc-900" alt="Yoga Training Form">
-                    <div class="p-4 space-y-2 text-xs">
-                        <h4 class="font-bold text-sm text-slate-200">${y.title}</h4>
-                        <p class="text-zinc-400"><strong>Postural Target:</strong> ${y.benefits}</p>
-                        <p class="text-[11px] text-zinc-400 font-medium">⏰ ${y.timeline}</p>
-                        <p class="text-[11px] text-rose-400 font-medium">💧 ${y.fluid}</p>
-                    </div>
-                </div>
-            `).join('');
-
-            document.getElementById('mimeContainer').innerHTML = mimeData.map(m => `
-                <div class="app-card rounded-xl overflow-hidden shadow-md">
-                    <img src="${m.image}" class="w-full h-40 object-cover bg-zinc-900" alt="Mime Technique Performance">
-                    <div class="p-4 space-y-3 text-xs">
-                        <h4 class="font-bold text-sm text-slate-200">${m.title}</h4>
-                        <p class="text-zinc-400 leading-relaxed font-medium">${m.details}</p>
-                        <a href="${m.link}" target="_blank" class="inline-block bg-zinc-900 border border-zinc-800 text-[#991b1b] px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold tracking-wider uppercase">LAUNCH YOUTUBE LESSON &rarr;</a>
-                    </div>
-                </div>
-            `).join('');
-
-            document.getElementById('facialContainer').innerHTML = facialData.map(f => `
-                <div class="app-card rounded-xl overflow-hidden shadow-md">
-                    <img src="${f.image}" class="w-full h-40 object-cover bg-zinc-900" alt="Facial Muscle Alignment Profile">
-                    <div class="p-4 space-y-1.5 text-xs">
-                        <h4 class="font-bold text-sm text-slate-200">${f.title}</h4>
-                        <p class="text-zinc-400 leading-relaxed font-medium"><strong>Daily Practice Routine:</strong> ${f.drill}</p>
-                    </div>
-                </div>
-            `).join('');
-
-            document.getElementById('tab-poems').innerHTML = poemsDatabase.map(p => `
-                <div onclick="openModal('poem', '${p.id}')" class="app-card p-5 rounded-xl cursor-pointer hover:border-[#991b1b] transition shadow-md space-y-2">
-                    <span class="bg-black/30 text-amber-600 border border-zinc-900 text-[9px] px-2.5 py-0.5 rounded font-mono font-bold uppercase tracking-wider">${p.writer} • ${p.type.toUpperCase()}</span>
-                    <h3 class="text-sm font-bold font-serif text-slate-200">${p.title}</h3>
-                </div>
-            `).join('');
-
-            document.getElementById('tab-literature').innerHTML = literatureRecommendations.map(l => `
-                <div class="app-card p-4 rounded-xl space-y-2 flex flex-col justify-between shadow-md">
-                    <div>
-                        <div class="flex justify-between items-center text-[9px] font-mono font-bold">
-                            <span class="text-[#991b1b] bg-rose-500/5 px-2 py-0.5 rounded border border-rose-900/20">${l.type.toUpperCase()}</span>
-                            <span class="text-zinc-500">${l.language}</span>
-                        </div>
-                        <h4 class="text-sm font-bold mt-2 font-serif text-slate-200">${l.title}</h4>
-                        <p class="text-[11px] text-zinc-400 font-medium">By: ${l.writer}</p>
-                        <p class="text-xs text-zinc-400 font-medium leading-relaxed pt-2 border-t border-zinc-900/40 mt-2">${l.context}</p>
-                    </div>
-                </div>
-            `).join('');
-
-            const letters = ['C', 'C#', 'D', 'D#', 'E', 'F', 'G', 'A', 'B'];
-            document.getElementById('pitchContainer').innerHTML = letters.map(l => `
-                <button onclick="fireAcousticNode('${l}')" class="bg-black/20 border border-zinc-800 text-zinc-400 font-mono font-bold py-3.5 rounded-xl text-xs transition active:scale-95 hover:border-[#991b1b]/40">${l}</button>
-            `).join('');
-
-            document.getElementById('theatreContainer').innerHTML = `
-                <div class="app-card rounded-xl overflow-hidden shadow-lg flex flex-col">
-                    <img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=600&q=80" class="w-full h-32 object-cover" alt="Production Tracking Poster">
-                    <div class="p-4 space-y-1">
-                        <h4 class="text-xs font-bold text-slate-200">NSD Repertory Assembly</h4>
-                        <p class="text-[10px] text-[#991b1b] font-mono tracking-wider uppercase font-semibold">Kamani Auditorium</p>
-                        <p class="text-xs text-zinc-400 leading-relaxed font-medium pt-1">Directed by Prof. Prasanna. Exploring traditional body-grounding methods and vocal alignment tools.</p>
-                    </div>
-                </div>`;
-
-            document.getElementById('cinemaContainer').innerHTML = `
-                <div class="app-card rounded-xl overflow-hidden shadow-lg flex flex-col">
-                    <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80" class="w-full h-32 object-cover" alt="Cinema Graphic Asset">
-                    <div class="p-4 space-y-1">
-                        <div class="flex justify-between items-center">
-                            <h4 class="text-xs font-bold text-slate-200">A Separation (Master Series)</h4>
-                            <span class="text-[9px] bg-black/40 text-amber-500 font-mono font-bold border border-zinc-800 px-1.5 py-0.5 rounded">IMDb 8.3</span>
-                        </div>
-                        <p class="text-[10px] text-zinc-500 font-medium">Director: Asghar Farhadi</p>
-                        <p class="text-xs text-zinc-400 leading-relaxed font-medium pt-1 italic">Flawless real-world domestic pacing framework tracking subtle shifts in performance style.</p>
-                    </div>
-                </div>`;
-        }
-
-        function openModal(category, id) {
-            const source = (category === 'script') ? scriptsDatabase : poemsDatabase;
-            const item = source.find(x => x.id === id);
-            if (!item) return;
-
-            document.getElementById('modalTitle').innerText = item.title;
-            document.getElementById('modalMeta').innerText = item.meta || `${item.writer} • ${item.type.toUpperCase()}`;
-            document.getElementById('contextPlay').innerText = item.play;
-            document.getElementById('contextObjective').innerText = item.objective;
-            document.getElementById('contextCharacter').innerText = item.character;
-            document.getElementById('modalBody').innerHTML = item.text;
-
-            renderFontSwitches(item.type);
-            document.getElementById('monologueModal').classList.remove('hidden');
-        }
-
-        function closeModal() { document.getElementById('monologueModal').classList.add('hidden'); }
-
-        function renderFontSwitches(type) {
-            const container = document.getElementById('fontStylesContainer');
-            container.innerHTML = fontsMatrix.filter(f => f.type === type).map(f => `
-                <button onclick="applySelectedFontFamily('${f.className}')" class="px-2.5 py-1.5 rounded-lg text-[9px] font-mono font-bold tracking-wide transition bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white">${f.name}</button>
-            `).join('');
-            
-            const fallback = (type === 'en') ? 'f-en-inter' : (type === 'bn' ? 'f-bn-noto' : 'f-hi-martel');
-            applySelectedFontFamily(fallback);
-        }
-
-        function applySelectedFontFamily(cls) {
-            const body = document.getElementById('modalBody');
-            body.className = `space-y-5 text-zinc-200 tracking-wide ${cls}`;
-            body.style.fontSize = `${currentSize}px`;
-        }
-
-        function adjustFontSize(mod) {
-            currentSize = Math.max(16, Math.min(36, currentSize + mod));
-            document.getElementById('modalBody').style.fontSize = `${currentSize}px`;
-            document.getElementById('fontSizeDisplay').innerText = `${currentSize}px`;
-        }
-
-        function fireAcousticNode(note) {
-            const freqs = { 'C': 261.63, 'C#': 277.18, 'D': 293.66, 'D#': 311.13, 'E': 329.63, 'F': 349.23, 'G': 392.00, 'A': 440.00, 'B': 493.88 };
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.frequency.setValueAtTime(freqs[note], ctx.currentTime);
-            osc.connect(gain); gain.connect(ctx.destination);
-            osc.start(); setTimeout(() => { osc.stop(); }, 1200);
-        }
-
-        function updateBPM(v) { document.getElementById('bpmDisplay').innerText = `${v} BPM`; }
-
-        function toggleMetronome() {
-            const btn = document.getElementById('metroBtn');
-            if (isMetroPlaying) {
-                clearInterval(metroInterval);
-                btn.innerText = "START PACING SEQUENCE";
-                isMetroPlaying = false;
-            } else {
-                isMetroPlaying = true;
-                btn.innerText = "HALT TIMELINE";
-                const ms = 60000 / document.getElementById('bpmSlider').value;
-                metroInterval = setInterval(() => {
-                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                    const osc = ctx.createOscillator();
-                    osc.frequency.setValueAtTime(950, ctx.currentTime);
-                    osc.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + 0.03);
-                }, ms);
+        // Close when clicking directly on the blurred background backdrop
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-blur')) {
+                event.target.classList.remove('flex');
+                event.target.classList.add('hidden');
             }
         }
     </script>
